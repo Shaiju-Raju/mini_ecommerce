@@ -38,9 +38,9 @@ export async function getItemFromCart (req,res) {
     try {
        const cart = await getOrCreateCart(userId);
        const items = await getFromCart(cart.id);
-
+      
        const total = items.reduce((sum, item) => {
-        return sum = Number(item.subtotal);
+        return sum = sum + Number(item.subtotal);
        },0)
 
        res.json({items, total});

@@ -12,7 +12,7 @@ export async function getProducts(req, res) {
 
 export async function getProduct (req, res) {
     try {
-        const product = await Product.getProduct(req.params.id);
+        const product = await Product.getProductById(req.params.id);
         if (!product) {
             return res.status(404).json({ message: "Product not found" });
         }
