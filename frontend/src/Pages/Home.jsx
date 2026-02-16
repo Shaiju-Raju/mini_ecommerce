@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import ProductCard from "../Components/ProductCard";
 import axios from "axios";
+import Navbar from "../Components/Navbar.jsx";
 import "./Home.css";
 
 
@@ -42,6 +43,9 @@ export default function Home() {
                 );
 
                 setProducts(response.data);
+
+                const token = localStorage.getItem("token");
+
             } catch (err) {
                 setError("Unable to load products. Please try again.");
                 console.log(err);
@@ -49,6 +53,7 @@ export default function Home() {
                 setLoading(false);
             }
         }
+
     fetchProducts();
     },[]);
 
@@ -65,9 +70,13 @@ export default function Home() {
 
 
     return (
+
+        
          
         <div style={{ backgroundColor: "#f5f5f5", minHeight: "100vh" }}>
-            <h1 style={{ textAlign: "center", paddingTop: "20px" }}>Products</h1>
+            
+            
+            <Navbar />
             <div style={containerStyle}>
                 {products.map((product) => (
                 <ProductCard key={product.id} product={product} />

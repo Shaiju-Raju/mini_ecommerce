@@ -1,3 +1,4 @@
+import AddToCartButton from "./addToCartButton";
 export default function ProductCard ({product}) {
     return (
         <div
@@ -16,9 +17,7 @@ export default function ProductCard ({product}) {
                 <p style={{ color: "gray" }}> {product.description} </p>
                 <h4>₹ {product.price}</h4>
 
-                <button style={buttonStyle}>
-                    Add to Cart
-                </button>
+                <AddToCartButton productId = {product.id} />
             </div>
 
         </div>
@@ -51,13 +50,3 @@ const imageStyle = {
   borderTopRightRadius: "12px",
 };
 
-const buttonStyle = {
-  marginTop: "auto",  
-  padding: "10px",
-  backgroundColor: "black",
-  color: "white",
-  border: "none",
-  borderRadius: "6px",
-  cursor: "pointer",
-  
-};
