@@ -1,16 +1,18 @@
 import axios from "axios";
-import { useEffect } from "react";
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 
 export const CartContext = createContext();
 
 export const CartProvider = ({children}) => {
     const [cartCount, setCartCount] = useState(0);
+    const [token, setToken] = useState(localStorage.getItem("token"));
 
     useEffect ( () => {
         const fetchCart = async () => {
-            const token = localStorage.getItem("token");
-            if (!token) return;
+            if (!token) {
+                setCartCount(0);
+                return;
+            }
 
             try {
                 const res = await axios.get("http://localhost:3000/api/cart", {
@@ -23,6 +25,7 @@ export const CartProvider = ({children}) => {
             } catch (err) {
                 if(err.response?.status === 401) {
                     localStorage.removeItem("token");
+                    setToken(null)
                     setCartCount(0);
                 }
                 
@@ -30,10 +33,10 @@ export const CartProvider = ({children}) => {
             }
         }
         fetchCart();
-    },[])
+    },[token])
 
     return (
-        <CartContext.Provider value={{cartCount, setCartCount}} >
+        <CartContext.Provider value={{cartCount, setCartCount, setToken, token}} >
             {children}
         </CartContext.Provider>
     );

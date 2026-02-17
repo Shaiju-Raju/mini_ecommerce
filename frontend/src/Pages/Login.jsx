@@ -1,13 +1,17 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import "./Login.css"
 import Navbar from "../Components/Navbar";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { CartContext } from "../Components/CartContext";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const {setToken, token} = useContext(CartContext);
+
+
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -18,8 +22,8 @@ export default function Login() {
             password: password
          });
 
-        const token = res.data.token;
-        localStorage.setItem("token", token);
+        setToken(res.data.token);
+        localStorage.setItem("token", res.data.token);
         navigate("/");
 
     } catch (err) {
