@@ -22,6 +22,16 @@ export default function Navbar() {
     navigate("/");
   }
 
+  function handleCart () {
+    if (token) {
+      navigate("/cart");
+    } else if (!token) {
+      alert("Please login to view cart");
+    }
+  }
+
+  
+
   useEffect(() => {
       if (!token) {
           setCartCount([]); 
@@ -57,7 +67,7 @@ export default function Navbar() {
           
       }
         {!["/login", "/signup"].includes(location.pathname) && (
-        <div className="cart-icon">
+        <div className="cart-icon" onClick={handleCart}>
           🛒
           {cartCount > 0 && (
             <span className="cart-badge">{cartCount}</span>

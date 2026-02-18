@@ -34,7 +34,7 @@ export default function Login() {
 
   return (
     <>
-    <Navbar />
+    {/* <Navbar /> */}
     <div className="login-container">  
       <h2 className="login-title">Login</h2>
       <form className="login-form" onSubmit={handleLogin}>

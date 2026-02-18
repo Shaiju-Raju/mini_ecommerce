@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import ProductCard from "../Components/ProductCard";
 import axios from "axios";
-import Navbar from "../Components/Navbar.jsx";
 import "./Home.css";
 
 
@@ -68,15 +67,10 @@ export default function Home() {
     
     if (error) return <h2 style={{ textAlign: "center", paddingTop: "20px" }}>{error}</h2>;
 
-
     return (
-
-        
          
         <div style={{ backgroundColor: "#f5f5f5", minHeight: "100vh" }}>
-            
-            
-            <Navbar />
+                        
             <div style={containerStyle}>
                 {products.map((product) => (
                 <ProductCard key={product.id} product={product} />

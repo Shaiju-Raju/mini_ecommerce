@@ -1,0 +1,170 @@
+/* ================= CART PAGE ================= */
+
+.cart-page {
+  padding: 40px 60px;
+  background-color: #f4f6f8;
+  min-height: 100vh;
+}
+
+.cart-title {
+  margin-bottom: 30px;
+  font-size: 28px;
+}
+
+/* Main Layout */
+.cart-content {
+  display: flex;
+  align-items: flex-start;   /* VERY IMPORTANT */
+  gap: 30px;
+}
+
+/* Left Side - Items */
+.cart-items {
+  flex: 2;
+}
+
+/* ================= CART ITEM ================= */
+
+.cart-item {
+  display: flex;
+  gap: 30px;
+  background: white;
+  padding: 25px;
+  margin-bottom: 20px;
+  border-radius: 12px;
+  border: 1px solid #e0e0e0;
+  transition: 0.2s ease;
+}
+
+.cart-item:hover {
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+
+/* Image */
+.cart-image {
+  width: 220px;
+  height: 220px;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.cart-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;   /* This makes image fill fully */
+}
+
+
+/* Info */
+.cart-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Title + Price row */
+.cart-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.item-title {
+  font-size: 18px;
+  font-weight: 500;
+  width: 70%;
+}
+
+.item-price {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* Bottom actions */
+.cart-actions {
+  margin-top: 25px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Quantity box */
+.quantity-box {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.qty-btn {
+  width: 35px;
+  height: 35px;
+  border: none;
+  background-color: #f3f3f3;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.qty-btn:hover {
+  background-color: #e6e6e6;
+}
+
+.qty-number {
+  width: 35px;
+  text-align: center;
+  font-weight: 500;
+}
+
+/* Delete */
+.remove-btn {
+  background: none;
+  border: none;
+  color: #007185;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.remove-btn:hover {
+  text-decoration: underline;
+}
+
+
+/* ================= RIGHT SIDE SUMMARY ================= */
+
+.cart-summary {
+  flex: 1;
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  border: 1px solid #e0e0e0;
+  position: sticky;     /* Makes it stay at top */
+  top: 100px;           /* Adjust depending on navbar height */
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  margin: 12px 0;
+}
+
+.summary-row.total {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.checkout-btn {
+  width: 100%;
+  padding: 12px;
+  margin-top: 20px;
+  background-color: #131921;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.checkout-btn:hover {
+  background-color: #0f172a;
+}
