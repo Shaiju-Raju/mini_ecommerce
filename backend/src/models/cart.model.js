@@ -42,6 +42,7 @@ export const getFromCart = async (cart_id) => {
         ci.cart_id,
         ci.product_id,
         p.title,
+        p.description,
         p.price,
         p.image_url,
         ci.quantity,

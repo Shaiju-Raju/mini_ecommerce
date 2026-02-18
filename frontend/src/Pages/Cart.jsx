@@ -3,18 +3,15 @@ import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../Components/CartContext";
 import axios from "axios";
 import CartItem from "../Components/CartItem";
+import { currencyFormat } from "../utils/currency";
+
 
 export default function Cart () {
     const {token} = useContext(CartContext);
     const [subTotal, setSubTotal] = useState(0);
     const [items, setItems] = useState([]);
 
-    function currencyFormat(value) {
-        return new Intl.NumberFormat("en-IN", {
-            style: "currency",
-            currency: "INR"
-        }).format(value);
-    }
+
 
     
     useEffect ( () => {

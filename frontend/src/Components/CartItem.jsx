@@ -1,21 +1,29 @@
-const CartItem = ({ item }) => {
+import { currencyFormat } from "../utils/currency";
+
+export default function CartItem ({item}) {
   return (
     <div className="cart-item">
 
-      {/* LEFT - Product Image */}
+      {/* Product Image */}
       <div className="cart-image">
         <img src={item.image_url} alt={item.title} />
       </div>
 
-      {/* RIGHT - Product Info */}
+      {/* Product Info */}
       <div className="cart-info">
 
         <div className="cart-top">
-          <h4 className="item-title">{item.title}</h4>
-          <p className="item-price">₹{item.price}</p>
+          <div>
+            <h4 className="item-title">{item.title}</h4>
+            <p className="item-description">
+              {item.description}
+            </p>
+            <p className="stock-text">In Stock</p>
+          </div>
+
+          <p className="item-price">{currencyFormat(item.price)}</p>
         </div>
 
-        {/* Quantity + Remove */}
         <div className="cart-actions">
           <div className="quantity-box">
             <button className="qty-btn">−</button>
@@ -27,9 +35,8 @@ const CartItem = ({ item }) => {
         </div>
 
       </div>
-
     </div>
   );
 };
 
-export default CartItem;
+
