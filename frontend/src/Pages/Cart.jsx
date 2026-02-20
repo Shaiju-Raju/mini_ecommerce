@@ -7,6 +7,9 @@ import { currencyFormat } from "../utils/currency";
 
 export default function Cart () {
     const { cartItems, subTotal, fetchCart} = useContext(CartContext);
+    const shippingRate = 0.05;
+    const shippingCharge = subTotal === 0 ? 0 : Math.round(subTotal * shippingRate);
+    const total = subTotal + shippingCharge;
 
     useEffect(() => {
         fetchCart();
@@ -37,14 +40,14 @@ export default function Cart () {
 
             <div className="summary-row">
                 <span>Shipping</span>
-                <span>₹100</span>
+                <span>₹{shippingCharge}</span>
             </div>
 
             <hr />
 
             <div className="summary-row total">
                 <span>Total</span>
-                <span>{currencyFormat(subTotal+100)}</span>
+                <span>{currencyFormat(total)}</span>
             </div>
 
             <button className="checkout-btn">

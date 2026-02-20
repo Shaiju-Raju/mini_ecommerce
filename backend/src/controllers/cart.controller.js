@@ -72,6 +72,7 @@ export async function updateCartQty (req,res) {
     try {
         const result =     await updateCart(quantity, cart_item_id);
         res.json({ message: "Cart updated successfully" });
+        
 
     } catch (err) {
         console.log(err);

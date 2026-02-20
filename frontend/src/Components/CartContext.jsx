@@ -66,7 +66,6 @@ export const CartProvider = ({children}) => {
         }
         fetchUser();
     },[token])
-    
 
     return (
         <CartContext.Provider value={{cartItems, subTotal ,cartCount, setCartCount, setToken, token, user, fetchCart}} >
