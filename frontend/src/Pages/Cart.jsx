@@ -1,40 +1,17 @@
 import "./Cart.css"
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect} from "react";
 import { CartContext } from "../Components/CartContext";
-import axios from "axios";
 import CartItem from "../Components/CartItem";
 import { currencyFormat } from "../utils/currency";
 
 
 export default function Cart () {
-    const {token} = useContext(CartContext);
-    const [subTotal, setSubTotal] = useState(0);
-    const [items, setItems] = useState([]);
+    const { cartItems, subTotal, fetchCart} = useContext(CartContext);
 
-
-
-    
-    useEffect ( () => {
-        const fetchCart = async () => {
-            try {
-                const response = await axios.get(
-                    "http://localhost:3000/api/cart",{
-                        headers:{
-                            Authorization: `Bearer ${token}`
-                        },
-                    });
-
-                    setSubTotal(response.data.total)
-                    setItems(response.data.items);
-                    console.log(response.data)
-
-            } catch (err) {
-                console.log("Fetch cart error", err);
-            }
-        }
+    useEffect(() => {
         fetchCart();
-    },[token])
- 
+    },[])
+
     return (
         <div className="cart-page">
         <h2 className="cart-title">Your Cart</h2>
@@ -43,7 +20,7 @@ export default function Cart () {
             {/* LEFT SIDE - Items */}
             <div className="cart-items">
             
-            {items.map((item) => (
+            {cartItems.map((item) => (
                 <CartItem key={item.id} item = {item}/>
             ))}
 

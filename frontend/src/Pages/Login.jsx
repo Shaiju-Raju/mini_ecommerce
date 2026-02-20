@@ -1,6 +1,5 @@
 import { useContext, useState } from "react";
 import "./Login.css"
-import Navbar from "../Components/Navbar";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { CartContext } from "../Components/CartContext";
@@ -9,7 +8,7 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const {setToken, token} = useContext(CartContext);
+  const {setToken} = useContext(CartContext);
 
 
 

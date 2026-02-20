@@ -38,6 +38,7 @@
   gap: 20px;
 }
 
+
 .login-btn {
   padding: 8px 15px;
   border: none;
@@ -64,4 +65,13 @@
   font-size: 12px;
   padding: 3px 6px;
   border-radius: 50%;
+}
+
+.welcome-text {
+  font-size: 14px;
+  font-weight: 500;
+  color: white;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 6px 12px;
+  border-radius: 20px;
 }

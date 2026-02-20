@@ -1,6 +1,32 @@
+import { useContext, useEffect } from "react";
 import { currencyFormat } from "../utils/currency";
+import { CartContext } from "./CartContext";
+import axios from "axios";
 
 export default function CartItem ({item}) {
+const {token, fetchCart}  = useContext(CartContext);
+
+ async function handleDelete() {
+    try {
+      await axios.delete(
+        `http://localhost:3000/api/cart/${item.product_id}`,
+        {
+          headers:{
+            Authorization: `Bearer ${token}`
+          }
+        }
+      );
+      
+      fetchCart();
+      
+      
+    } catch (err) {
+      console.log("Delete error", err);
+
+    }
+   
+  }
+
   return (
     <div className="cart-item">
 
@@ -31,7 +57,7 @@ export default function CartItem ({item}) {
             <button className="qty-btn">+</button>
           </div>
 
-          <button className="remove-btn">Delete</button>
+          <button className="remove-btn" onClick={handleDelete}>Delete</button>
         </div>
 
       </div>

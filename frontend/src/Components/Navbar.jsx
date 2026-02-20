@@ -4,7 +4,7 @@ import { useNavigate,useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 
 export default function Navbar() {
-  const {cartCount, setCartCount, token, setToken } = useContext(CartContext);
+  const {cartCount, setCartCount, token, setToken, user } = useContext(CartContext);
   
   const navigate = useNavigate();
   const location = useLocation();
@@ -56,26 +56,32 @@ export default function Navbar() {
         </div>
       )}
 
-      <div className="nav-right">
-        {location.pathname === "/login" ? (
-          <button className="login-btn" onClick={() => navigate("/signup")}>Signup</button>
-        ) : token ? (
-          <button className="login-btn" onClick={handleLogout}>Logout</button>
-        ): (
-          <button className="login-btn" onClick={() => navigate("/login")}>Login</button>
-        )
-          
-      }
-        {!["/login", "/signup"].includes(location.pathname) && (
-        <div className="cart-icon" onClick={handleCart}>
-          🛒
-          {cartCount > 0 && (
-            <span className="cart-badge">{cartCount}</span>
+        <div className="nav-right">
+
+          {!["/login", "/signup"].includes(location.pathname) && (
+            <span className="welcome-text">Welcome, {user} 👋</span>
           )}
-        </div>
-        )}
+
+
+          {location.pathname === "/login" ? (
+            <button className="login-btn" onClick={() => navigate("/signup")}>Signup</button>
+          ) : token ? (
+            <button className="login-btn" onClick={handleLogout}>Logout</button>
+          ) : (
+            <button className="login-btn" onClick={() => navigate("/login")}>Login</button>
+          )}
+
+          {!["/login", "/signup"].includes(location.pathname) && (
+            <div className="cart-icon" onClick={handleCart}>
+              🛒
+              {cartCount > 0 && (
+                <span className="cart-badge">{cartCount}</span>
+              )}
+            </div>
+          )}
 
       </div>
+
     </div>
   );
 }

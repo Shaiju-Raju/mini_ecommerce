@@ -8,30 +8,6 @@ export default function Home() {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
-    const containerStyle = {
-        display: "grid",
-        gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))",
-        gap: "20px",
-        padding: "20px",
-        
-    };
-
-    const loaderContainer = {
-        height: "100vh",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-    };
-
-    const spinner = {
-        width: "50px",
-        height: "50px",
-        border: "6px solid #ddd",
-        borderTop: "6px solid #3498db",
-        borderRadius: "50%",
-        animation: "spin 1s linear infinite",
-    };
 
 
     useEffect ( () => {
@@ -40,10 +16,7 @@ export default function Home() {
                 const response = await axios.get(
                     "http://localhost:3000/api/products"
                 );
-
                 setProducts(response.data);
-
-                const token = localStorage.getItem("token");
 
             } catch (err) {
                 setError("Unable to load products. Please try again.");
@@ -71,7 +44,7 @@ export default function Home() {
          
         <div style={{ backgroundColor: "#f5f5f5", minHeight: "100vh" }}>
                         
-            <div style={containerStyle}>
+            <div className="containerStyle">
                 {products.map((product) => (
                 <ProductCard key={product.id} product={product} />
                 ))}
