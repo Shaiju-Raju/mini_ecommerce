@@ -50,6 +50,7 @@ export const getFromCart = async (cart_id) => {
     FROM cart_items ci
     JOIN products p ON ci.product_id = p.id
     WHERE ci.cart_id = $1
+    ORDER BY ci.id ASC
     `, [cart_id]);
     
 

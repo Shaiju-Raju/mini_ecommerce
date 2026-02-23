@@ -62,6 +62,16 @@ export default function Navbar() {
             <span className="welcome-text">Welcome, {user} 👋</span>
           )}
 
+          <div className="profile-container">
+            <div className="profile-btn">Profile ▾</div>
+
+            <div className="profile-dropdown">
+              <div className="dropdown-item">Order History</div>
+              <div className="dropdown-item">Logout</div>
+            </div>
+         </div>
+
+
 
           {location.pathname === "/login" ? (
             <button className="login-btn" onClick={() => navigate("/signup")}>Signup</button>

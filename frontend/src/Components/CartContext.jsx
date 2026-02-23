@@ -8,6 +8,15 @@ export const CartProvider = ({children}) => {
     const [user, setUser] = useState(null);
     const [cartItems, setCartItems] = useState([]);
     const [subTotal, setSubTotal] = useState(0);
+    const [shippingData, setShippingData] = useState({
+    fullName: "",
+    phoneNumber: "",
+    addressLine1: "",
+    city: "",
+    state: "",
+    postalCode: "",
+    country: ""
+  });
 
 
    
@@ -67,8 +76,29 @@ export const CartProvider = ({children}) => {
         fetchUser();
     },[token])
 
+
+
+    const placeOrder = async () => {
+
+        try {
+            const res = await axios.post("http://localhost:3000/api/cart/checkout",
+                shippingData,
+                {
+                    headers:{
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+            )
+
+            return res.data;
+
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
     return (
-        <CartContext.Provider value={{cartItems, subTotal ,cartCount, setCartCount, setToken, token, user, fetchCart}} >
+        <CartContext.Provider value={{cartItems, subTotal,setSubTotal ,cartCount, setCartCount, setToken, token, user, fetchCart, placeOrder,shippingData,setShippingData}} >
             {children}
         </CartContext.Provider>
     );

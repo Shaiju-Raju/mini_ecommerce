@@ -20,6 +20,18 @@ export const createOrderItems = async (orderId, items) => {
     }
 }
 
+export const createOrderAddress = async (orderId, shippingData) => {
+
+    const result = await pool.query(`INSERT INTO order_address 
+        (order_id, full_name, phone_number, address, city, state, postal_code, country)
+        VALUES($1, $2, $3, $4, $5, $6, $7, $8 )RETURNING *
+        `,[orderId, shippingData.fullName, shippingData.phoneNumber, shippingData.addressLine1, shippingData.city,
+            shippingData.state, shippingData.postalCode, shippingData.country
+         ]);
+
+         return result.rows[0];
+}
+
 
 export const clearCart = async (cartId) => {
     await pool.query(

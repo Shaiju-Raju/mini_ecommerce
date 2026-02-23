@@ -75,3 +75,39 @@
   padding: 6px 12px;
   border-radius: 20px;
 }
+
+.profile-container {
+  position: relative;
+  display: inline-block;
+}
+
+.profile-btn {
+  cursor: pointer;
+  padding: 8px 12px;
+}
+
+.profile-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: #4e4d4d;
+  min-width: 160px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  display: none;
+  z-index: 9999;
+}
+
+.profile-container:hover .profile-dropdown {
+  display: block;
+}
+
+.dropdown-item {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.dropdown-item:hover {
+  background-color: #080808;
+}

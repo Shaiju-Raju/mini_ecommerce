@@ -1,12 +1,13 @@
 import { getOrCreateCart, getFromCart } from "../models/cart.model.js";
-import { createOrder,createOrderItems,clearCart } from "../models/checkout.model.js";
+import { createOrder,createOrderItems,clearCart,createOrderAddress } from "../models/checkout.model.js";
 
 
 export async function checkout (req, res) {
-
     const userId = req.user.id;
+    const shippingData= req.body;
 
     try {
+
         const cart = await getOrCreateCart(userId);
         const items = await getFromCart(cart.id);
 
@@ -21,12 +22,14 @@ export async function checkout (req, res) {
 
     // Create Order
     const order = await createOrder(userId, total);
-
-    // Insert Order Items
+ 
+    // Insert Order Items & Address
     await createOrderItems(order.id, items);
+    const address= await createOrderAddress(order.id, shippingData)
 
     // Clear Cart
     await clearCart(cart.id)
+
 
     res.json({
         message: "Order placed successfully",

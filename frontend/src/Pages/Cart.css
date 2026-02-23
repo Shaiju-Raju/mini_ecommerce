@@ -184,3 +184,39 @@
   font-weight: 500;
   margin-top: 4px;
 }
+
+.checkout-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.empty-cart {
+  background: white;
+  padding: 50px;
+  text-align: center;
+  border-radius: 12px;
+  border: 1px solid #e0e0e0;
+}
+
+.empty-cart h2 {
+  margin-bottom: 10px;
+}
+
+.empty-cart p {
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.shop-btn {
+  padding: 12px 20px;
+  background-color: #131921;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.shop-btn:hover {
+  background-color: #0f172a;
+}

@@ -1,0 +1,146 @@
+/* ================= CHECKOUT PAGE ================= */
+
+.checkout-page {
+  padding: 40px 60px;
+  background-color: #f4f6f8;
+  min-height: 100vh;
+}
+
+.checkout-title {
+  font-size: 28px;
+  margin-bottom: 30px;
+}
+
+/* Layout */
+.checkout-content {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+/* LEFT SIDE */
+.checkout-left {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+/* Section Card */
+.checkout-section {
+  background: white;
+  padding: 30px;
+  border-radius: 14px;
+  border: 1px solid #e0e0e0;
+}
+
+/* Section Header */
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.section-number {
+  background-color: #131921;
+  color: white;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* Form Grid */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.form-grid input {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.full-width {
+  grid-column: span 2;
+}
+
+/* Payment Cards */
+.payment-options {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.payment-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.payment-card:hover {
+  border-color: #131921;
+}
+
+.payment-card.active {
+  border-color: #131921;
+  background-color: #f7f9fb;
+}
+
+/* RIGHT SIDE SUMMARY */
+.checkout-summary {
+  flex: 1;
+  background: white;
+  padding: 30px;
+  border-radius: 14px;
+  border: 1px solid #e0e0e0;
+  position: sticky;
+  top: 100px;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  margin: 12px 0;
+}
+
+.summary-divider {
+  height: 1px;
+  background: #e0e0e0;
+  margin: 15px 0;
+}
+
+.summary-row.total {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.place-order-btn {
+  width: 100%;
+  padding: 14px;
+  margin-top: 20px;
+  background-color: #131921;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.place-order-btn:hover {
+  background-color: #0f172a;
+}

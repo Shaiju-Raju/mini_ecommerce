@@ -13,7 +13,7 @@ export const getOrderById = async (orderId) => {
         "SELECT * FROM orders WHERE id = $1",
         [orderId]
     );
-    return result.rows;
+    return result.rows[0];
 };
 
 export const getOrderItems = async (orderId) => {
@@ -41,3 +41,11 @@ export const updateOrderStatusModel = async (orderId, status) => {
     );
     return result.rows[0];
 };
+
+export const getOrderAddress = async (orderId) => {
+    const result = await pool.query(
+        "SELECT * FROM order_address WHERE order_id=$1",
+        [orderId]
+    );
+    return result.rows[0];
+}

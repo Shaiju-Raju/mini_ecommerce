@@ -3,6 +3,7 @@ import {
     getOrderById,
     getOrderItems,
     getAllOrdersModel,
+    getOrderAddress,
     updateOrderStatusModel } from "../models/orders.model.js";
 
 
@@ -12,7 +13,7 @@ export async function getUserOrders (req, res) {
     try {
         const orders = await getOrdersByUser(userId);
         res.json(orders)
-    } catch (err) {
+    } catch (err) { 
         res.status(500).json({ error: "Failed to fetch orders" });
         console.log(err)
     }
@@ -21,7 +22,7 @@ export async function getUserOrders (req, res) {
 export async function getSingleOrder(req, res) {
     const {id} = req.params;
     const userId = req.user.id;
-
+    
     try {
       const order = await getOrderById(id);
 
@@ -29,13 +30,14 @@ export async function getSingleOrder(req, res) {
         return res.status(400).json({message: "Order not found"});
       }
 
-      if (order.user_id !== userId && req.user.role !== "admin") {
+      if (Number(order.user_id) !== Number(userId) && req.user.role !== "admin") {
         return res.status(403).json({ message: "Access denied" });
        }
 
        const items = await getOrderItems(id);
+       const address = await getOrderAddress(id);
 
-       res.json({order, items});
+       res.json({order, items, address});
 
     } catch (err) {
         res.status(500).json({error: "Failed to fetch order"});

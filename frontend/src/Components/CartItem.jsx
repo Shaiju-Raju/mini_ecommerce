@@ -44,7 +44,7 @@ const {token, fetchCart}  = useContext(CartContext);
           }
         }
       )
-
+      
       fetchCart();
 
     } catch (err) {
