@@ -2,7 +2,7 @@ import "./Cart.css"
 import { useContext, useEffect} from "react";
 import { CartContext } from "../Components/CartContext";
 import CartItem from "../Components/CartItem";
-import { currencyFormat } from "../utils/currency";
+
 import { useNavigate } from "react-router-dom";
 
 

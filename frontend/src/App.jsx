@@ -4,6 +4,7 @@ import Login from "./Pages/Login";
 import Cart from "./Pages/Cart";
 import Checkout from "./Pages/Checkout";
 import Navbar from "./Components/Navbar";
+import OrderHistory from "./Pages/OrderHistory";
 import "./App.css"
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -21,6 +22,7 @@ function App() {
         <Route path="cart" element={<Cart />} />
         <Route path="checkout" element={<Checkout />} />
         <Route path="/orders/:orderId" element={<Orders />} />
+        <Route path="order_history" element={<OrderHistory />} />
       </Routes>
     </BrowserRouter>
 

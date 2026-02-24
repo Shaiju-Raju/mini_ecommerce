@@ -62,24 +62,26 @@ export default function Navbar() {
             <span className="welcome-text">Welcome, {user} 👋</span>
           )}
 
+          {token&& (
           <div className="profile-container">
             <div className="profile-btn">Profile ▾</div>
 
             <div className="profile-dropdown">
-              <div className="dropdown-item">Order History</div>
-              <div className="dropdown-item">Logout</div>
+              <div className="dropdown-item" onClick={() => navigate("/order_history")}>Order History</div>
+              
+              <div className="dropdown-item" onClick={token? handleLogout: null}>Logout</div>
             </div>
          </div>
+          )}
+
 
 
 
           {location.pathname === "/login" ? (
             <button className="login-btn" onClick={() => navigate("/signup")}>Signup</button>
-          ) : token ? (
-            <button className="login-btn" onClick={handleLogout}>Logout</button>
-          ) : (
+          ) : !token ? (
             <button className="login-btn" onClick={() => navigate("/login")}>Login</button>
-          )}
+          ) : null}
 
           {!["/login", "/signup"].includes(location.pathname) && (
             <div className="cart-icon" onClick={handleCart}>
