@@ -1,5 +1,6 @@
 import { getOrCreateCart, getFromCart } from "../models/cart.model.js";
 import { createOrder,createOrderItems,clearCart,createOrderAddress } from "../models/checkout.model.js";
+import { getSettings } from "../models/settings.model.js";
 
 
 export async function checkout (req, res) {
@@ -10,13 +11,15 @@ export async function checkout (req, res) {
 
         const cart = await getOrCreateCart(userId);
         const items = await getFromCart(cart.id);
+        const shippingRate = (await getSettings()).shipping_rate;
+       
 
         if(!items.length) {
             return res.status(400).json({message: "Cart Empty"});
             
         }
 
-        const total = items.reduce((sum, item) => {
+        const subTotal = items.reduce((sum, item) => {
             return sum + Number(item.subtotal);
         }, 0);
 
@@ -24,9 +27,14 @@ export async function checkout (req, res) {
             return sum + Number(item.quantity);
         },0);
 
+         const shippingCharge = Math.min(750, Math.round(subTotal * shippingRate));
+        const total = subTotal + shippingCharge;
+
+        
+
 
     // Create Order
-    const order = await createOrder(userId,totalQuantity, total);
+    const order = await createOrder(userId,totalQuantity,shippingCharge, subTotal, total);
  
     // Insert Order Items & Address
     await createOrderItems(order.id, items);

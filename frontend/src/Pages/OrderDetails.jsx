@@ -78,15 +78,15 @@ useEffect (() => {
             </div>
             <div className="summary-row">
                 <span>Subtotal</span>
-                <span>{currencyFormat(order.total)}</span>
+                <span>{currencyFormat(order.sub_total)}</span>
             </div>
             <div className="summary-row">
                 <span>Shipping</span>
-                <span>₹100</span>
+                <span>{currencyFormat(order.shipping_charge)}</span>
             </div>
             <div className="summary-row total">
                 <span>Total</span>
-                <span>₹1,499</span>
+                <span>{currencyFormat(order.total)}</span>
             </div>
             </div>
 

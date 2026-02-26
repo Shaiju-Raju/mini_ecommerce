@@ -7,12 +7,12 @@ import axios from "axios";
 
 
 export default function Orders () {
-  const {token}   = useContext(CartContext);
+  const {token,shippingCharge}   = useContext(CartContext);
   const navigate = useNavigate();
   const {orderId} = useParams();
   const [order, setOrder] = useState(null);
   const [address, setAddress] = useState(null);
-  const shippingRate = 0.01;
+  
 
 
   useEffect(() => {
@@ -79,17 +79,17 @@ export default function Orders () {
 
             <div className="summary-row">
                 <span>Subtotal</span>
-                <span>{currencyFormat(order.total)}</span>
+                <span>{currencyFormat(order.sub_total)}</span>
             </div>
 
             <div className="summary-row">
                 <span>Shipping</span>
-                <span>{currencyFormat((order.total) * shippingRate)}</span>
+                <span>{currencyFormat(order.shipping_charge)}</span>
             </div>
 
             <div className="summary-row total">
                 <span>Total</span>
-                <span>{currencyFormat(Number(order.total) + (order.total * shippingRate))}</span>
+                <span>{currencyFormat(order.total)}</span>
             </div>
 
             <button className="continue-btn" onClick={() => navigate("/") }>
