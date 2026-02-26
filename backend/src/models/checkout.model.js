@@ -1,10 +1,10 @@
 import pool from "../config/db.js";
 
-export const createOrder = async (userId, total) => {
+export const createOrder = async (userId,totalQuantity, total) => {
     const result = await pool.query(`
-        INSERT INTO orders (user_id, total) 
-        VALUES ($1, $2) RETURNING *`
-    ,[userId, total]);
+        INSERT INTO orders (user_id, total_quantity, total) 
+        VALUES ($1, $2, $3) RETURNING *`
+    ,[userId,totalQuantity, total]);
 
     return result.rows[0];
 }

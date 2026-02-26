@@ -20,8 +20,13 @@ export async function checkout (req, res) {
             return sum + Number(item.subtotal);
         }, 0);
 
+        const totalQuantity = items.reduce((sum, item) => {
+            return sum + Number(item.quantity);
+        },0);
+
+
     // Create Order
-    const order = await createOrder(userId, total);
+    const order = await createOrder(userId,totalQuantity, total);
  
     // Insert Order Items & Address
     await createOrderItems(order.id, items);

@@ -6,11 +6,19 @@ import { useNavigate } from "react-router-dom";
 
 export default function Checkout() {
 
-  const {subTotal, placeOrder,shippingData,setShippingData,cartCount, setCartCount, setSubTotal}   = useContext(CartContext);
+    const {
+    subTotal,
+    placeOrder,
+    shippingData,
+    setShippingData,
+    cartCount,
+    setCartCount,
+    setSubTotal,
+    shippingCharge,
+    total
+  } = useContext(CartContext);
+  
   const navigate = useNavigate();
-  const shippingRate = 0.01;
-  const shippingCharge = Math.round(subTotal * shippingRate);
-  const total = subTotal + shippingCharge;
 
   const handleChange= (e) => {
     const {name, value} = e.target;

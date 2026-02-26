@@ -8,6 +8,7 @@ export const CartProvider = ({children}) => {
     const [user, setUser] = useState(null);
     const [cartItems, setCartItems] = useState([]);
     const [subTotal, setSubTotal] = useState(0);
+    const [shippingRate, setShippingRate] = useState(0)
     const [shippingData, setShippingData] = useState({
     fullName: "",
     phoneNumber: "",
@@ -19,7 +20,7 @@ export const CartProvider = ({children}) => {
   });
 
 
-   
+   // Fetcing the cart details
     const fetchCart = async () => {
         if (!token) {
             setCartCount(0);
@@ -50,11 +51,14 @@ export const CartProvider = ({children}) => {
         }
     }
 
+
+// Calling fetchCart if any changes happen in token(side effect)
     useEffect (() => {
         fetchCart();
     },[token])
         
   
+    //To get the user Profile (Name and other details)
     useEffect (() => {
         setUser(null);
 
@@ -77,7 +81,7 @@ export const CartProvider = ({children}) => {
     },[token])
 
 
-
+    // To place the order
     const placeOrder = async () => {
 
         try {
@@ -97,8 +101,51 @@ export const CartProvider = ({children}) => {
         }
     }
 
+    //Fetching ShippingRate
+    useEffect (() => {
+        const fetchShippingRate = async () => {
+            const response = await axios.get("http://localhost:3000/api/settings");
+            if(response) {
+                setShippingRate(Number(response.data.shipping_rate));
+            }
+        }
+        fetchShippingRate();
+    },[]);
+
+    
+    const shippingCharge = Math.min(750, Math.round(subTotal * shippingRate));
+    const total = subTotal + shippingCharge;
+
+
+
+    // Returing the global context
     return (
-        <CartContext.Provider value={{cartItems, subTotal,setSubTotal ,cartCount, setCartCount, setToken, token, user, fetchCart, placeOrder,shippingData,setShippingData}} >
+        <CartContext.Provider value={{
+            //Cart Items
+            cartItems,
+            cartCount,
+            setCartCount,
+
+            //Pricing
+            subTotal,
+            setSubTotal,
+            shippingCharge,
+            total,
+
+            //Auth
+            setToken,
+            token,
+            user,
+
+            //Actions
+            fetchCart,
+            placeOrder,
+
+            //Shipping Address and rate
+            shippingData,
+            setShippingData,
+            shippingRate
+        }}>
             {children}
         </CartContext.Provider>
     );

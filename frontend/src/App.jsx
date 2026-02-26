@@ -9,6 +9,7 @@ import "./App.css"
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Orders from "./Pages/Orders";
+import OrderDetails from "./Pages/OrderDetails";
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
         <Route path="checkout" element={<Checkout />} />
         <Route path="/orders/:orderId" element={<Orders />} />
         <Route path="order_history" element={<OrderHistory />} />
+        <Route path="order_history/order_details/:id" element={<OrderDetails />} />
       </Routes>
     </BrowserRouter>
 

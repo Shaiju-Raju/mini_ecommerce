@@ -3,10 +3,12 @@ import "./OrderHistory.css";
 import axios from "axios";
 import { CartContext } from "../Components/CartContext";
 import { currencyFormat } from "../utils/currency";
+import { useNavigate } from "react-router-dom";
 
 export default function OrderHistory() {
   const {token} = useContext(CartContext);
   const [orders, setOrders] = useState([])
+  const navigate = useNavigate()
   const formatDateTime = (dateString) => {
   const date = new Date(dateString.replace(" ", "T"));
 
@@ -23,7 +25,7 @@ export default function OrderHistory() {
 
 
 useEffect (() => {
-  const fetchOrder = async () => {
+  const fetchOrders = async () => {
     try {
       const response = await axios.get("http://localhost:3000/api/orders", {
         headers: {
@@ -37,7 +39,7 @@ useEffect (() => {
       console.err("Error in Fetching Orders",err);
     }
   }
-  fetchOrder();
+  fetchOrders();
 },[token])
 
 
@@ -65,11 +67,11 @@ useEffect (() => {
 
             <div className="order-middle">
               <p>Total: {currencyFormat(order.total)} </p>
-              <p>Items: {}</p>
+              <p>Items: {order.total_quantity}</p>
             </div>
 
             <div className="order-bottom">
-              <button className="view-btn">
+              <button className="view-btn" onClick={() => navigate(`order_details/${order.id}`)}>
                 View Details
               </button>
             </div>

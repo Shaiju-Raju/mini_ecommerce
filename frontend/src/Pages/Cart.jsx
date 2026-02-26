@@ -2,16 +2,14 @@ import "./Cart.css"
 import { useContext, useEffect} from "react";
 import { CartContext } from "../Components/CartContext";
 import CartItem from "../Components/CartItem";
-
+import { currencyFormat } from "../utils/currency";
 import { useNavigate } from "react-router-dom";
 
 
 export default function Cart () {
-    const { cartItems, subTotal, fetchCart} = useContext(CartContext);
+    const { cartItems, subTotal, fetchCart, shippingCharge, total} = useContext(CartContext);
     const navigate = useNavigate();
-    const shippingRate = 0.01;
-    const shippingCharge = subTotal === 0 ? 0 : Math.round(subTotal * shippingRate);
-    const total = subTotal + shippingCharge;
+
 
     useEffect(() => {
         fetchCart();
