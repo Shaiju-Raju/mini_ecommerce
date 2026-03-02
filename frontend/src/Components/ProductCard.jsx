@@ -1,28 +1,42 @@
 import AddToCartButton from "./addToCartButton";
-export default function ProductCard ({product}) {
-    return (
-        <div
-        style={cardStyle}
-        onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-5px)")}
-        onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0px)")}
-        >
-          
-            <img
-                src={product.image_url}
-                alt={product.title}
-                style={imageStyle}
-            />
-            <div style={contentStyle}>
-                <h3>{product.title}</h3>
-                <p style={{ color: "gray" }}> {product.description} </p>
-                <h4>₹ {product.price}</h4>
+import { useState } from "react";
 
-                <AddToCartButton productId = {product.id} />
-            </div>
+export default function ProductCard({ product }) {
+  const [imageLoaded, setImageLoaded] = useState(false);
 
-        </div>
-    )
+  return (
+    <div
+      style={cardStyle}
+      onMouseEnter={(e) =>
+        (e.currentTarget.style.transform = "translateY(-5px)")
+      }
+      onMouseLeave={(e) =>
+        (e.currentTarget.style.transform = "translateY(0px)")
+      }
+    >
+      <div style={imageWrapper}>
+        {!imageLoaded && <div style={skeletonStyle}></div>}
 
+        <img
+          src={product.image_url}
+          alt={product.title}
+          loading="lazy"
+          onLoad={() => setImageLoaded(true)}
+          style={{
+            ...imageStyle,
+            opacity: imageLoaded ? 1 : 0,
+          }}
+        />
+      </div>
+
+      <div style={contentStyle}>
+        <h3>{product.title}</h3>
+        <p style={{ color: "gray" }}>{product.description}</p>
+        <h4>₹ {product.price}</h4>
+        <AddToCartButton productId={product.id} />
+      </div>
+    </div>
+  );
 }
 
 const cardStyle = {
@@ -46,7 +60,23 @@ const imageStyle = {
   width: "100%",
   height: "200px",
   objectFit: "cover",
+  transition: "opacity 0.3s ease",
+};
+
+const skeletonStyle = {
+  position: "absolute",
+  top: 0,
+  left: 0,
+  width: "100%",
+  height: "100%",
+  background: "#e0e0e0",
+};
+
+const imageWrapper = {
+  position: "relative",
+  width: "100%",
+  height: "200px",
+  overflow: "hidden",
   borderTopLeftRadius: "12px",
   borderTopRightRadius: "12px",
 };
-

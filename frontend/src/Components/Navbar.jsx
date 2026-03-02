@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 
 export default function Navbar() {
   const {cartCount, setCartCount, token, setToken, user } = useContext(CartContext);
+  const [search, setSearch] = useState("");
   
   const navigate = useNavigate();
   const location = useLocation();
@@ -30,7 +31,13 @@ export default function Navbar() {
     }
   }
 
-  
+  function handleSearch() {
+    navigate(`/?search=${search}&page=1`);
+    setSearch("")
+
+  }
+
+  console.log(search)
 
   useEffect(() => {
       if (!token) {
@@ -46,15 +53,22 @@ export default function Navbar() {
         <h2 onClick={handleHomePage} className="logo">MyStore</h2>
       </div>
 
-      {location.pathname === "/" && (
-        <div className="nav-center">
+    {location.pathname === "/" && (
+      <div className="nav-center">
+        <div className="search-container">
           <input
+            value={search}
             type="text"
             placeholder="Search products..."
             className="search-bar"
+            onChange={(e)=> setSearch(e.target.value)}
           />
+          <button className="search-icon-btn" onClick={handleSearch} >
+            🔍
+          </button>
         </div>
-      )}
+      </div>
+    )}
 
         <div className="nav-right">
 

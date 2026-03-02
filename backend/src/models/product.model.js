@@ -1,8 +1,46 @@
 import pool from "../config/db.js";
 
-export const getAllProducts = async () => {
-    const result = await pool.query("SELECT * FROM products ORDER BY created_at DESC");
-    return result.rows;
+export const getAllProducts = async (page = 1, limit= 8, search = "") => {
+
+    const offset = (page -1) * limit;
+
+    let countQuery = "SELECT COUNT(*) FROM products";
+    let dataQuery ="SELECT * FROM products";
+    let values = [];
+
+    
+
+    if(search) {
+        countQuery += " WHERE title ILIKE $1";
+        dataQuery += " WHERE title ILIKE $1";
+        values.push(`%${search}%`);
+    }
+
+    //Count Query
+    const countResult = await pool.query(countQuery,values);
+    const totalProducts = countResult.rows[0].count;
+    const totalPages = Math.ceil(totalProducts/limit);
+
+    //Pagination
+
+    if(search) {
+        dataQuery += " ORDER BY created_at DESC LIMIT $2 OFFSET $3";
+        values.push(limit,offset)
+    } else {
+        dataQuery += " ORDER BY created_at DESC LIMIT $1 OFFSET $2";
+        values.push(limit,offset);
+    }
+
+
+    
+    const result = await pool.query(dataQuery, values);
+
+    return {
+        products: result.rows,
+        totalProducts,
+        totalPages,
+        currentPage: page,
+    }
 };
 
 
