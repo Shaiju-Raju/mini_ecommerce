@@ -9,6 +9,7 @@ import userRoutes from "./routes/users.routes.js";
 import cartRoutes from "./routes/cart.routes.js"
 import orderRoutes from "./routes/order.routes.js";
 import settingsRoutes from "./routes/settings.routes.js"
+import adminRoutes from "./routes/admin.routes.js";
 import cors from 'cors';
 
 
@@ -31,6 +32,7 @@ app.use("/api/users",userRoutes);
 app.use("/api/cart", cartRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api", settingsRoutes );
+app.use("/api/admin",adminRoutes)
 
 
 app.get("/", (req, res) => {

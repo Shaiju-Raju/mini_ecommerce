@@ -3,6 +3,7 @@ import "./Login.css"
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { CartContext } from "../Components/CartContext";
+import { jwtDecode } from "jwt-decode";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -23,7 +24,16 @@ export default function Login() {
 
         setToken(res.data.token);
         localStorage.setItem("token", res.data.token);
-        navigate("/");
+
+        const decode = jwtDecode (res.data.token)
+        
+        if (decode.role === "admin") {
+          navigate("/admin/dashboard");
+        } else {
+          navigate("/");
+        }
+
+        
 
     } catch (err) {
         alert("Invalid credential");
