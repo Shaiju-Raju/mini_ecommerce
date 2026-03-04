@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken"
-import { createUser, findUserByEmail, userProfile, } from '../models/users.model.js';
+import { createUser, findUserByEmail, userProfile, allUserDetails } from '../models/users.model.js';
 
 
 export async function registerUser (req, res) { 
@@ -90,4 +90,17 @@ export async function getUserProfile(req, res) {
         console.error("Profile error:", err);
         res.status(500).json({ message: "Server Error" });
     }
+}
+
+
+export async function getAllUserDetails (req, res) {
+    try {
+        const users = await allUserDetails();
+        res.json(users);
+
+    } catch (err) {
+        console.error("Profile error:", err);
+        res.status(500).json({ message: "Server Error" });
+    }
+    
 }

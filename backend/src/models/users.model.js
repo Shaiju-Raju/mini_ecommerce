@@ -26,3 +26,17 @@ export const userProfile = async (id) => {
     return result.rows[0];
 }
 
+export const allUserDetails = async () => {
+    const result = await pool.query(`
+        SELECT *, COUNT(*) OVER() AS total_count
+        FROM users
+        WHERE role <> 'admin'
+    `);
+
+    return {
+        users: result.rows,
+        totalUsers: result.rows.length > 0 
+            ? parseInt(result.rows[0].total_count) 
+            : 0
+    };
+};

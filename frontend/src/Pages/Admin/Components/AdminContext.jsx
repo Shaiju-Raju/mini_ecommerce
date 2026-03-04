@@ -7,6 +7,7 @@ export const AdminProvider = ({children}) => {
     const [productsCount, setProductsCount] = useState(0);
     const [ordersCount, SetOrdersCount] = useState(0);
     const [totalRevenue, setTotalRevenue] = useState(0);
+    const [userCount, setUserCount] = useState(0);
     const {token} = useContext(CartContext);
 
 
@@ -47,12 +48,29 @@ export const AdminProvider = ({children}) => {
          fetchOrders();
     },[token])
 
+    // Fetching user Details
+
+    useEffect(() => {
+        const fetchUserDetails = async () => {
+            const response = await axios.get("http://localhost:3000/api/users/admin/all",{
+                headers: {
+                    Authorization: `Bearer ${token}`
+                },
+            });
+            setUserCount(response.data.totalUsers);
+        }
+        fetchUserDetails();
+    },[token])
+
+
+
 
     return (
         <AdminContext.Provider value={{
             productsCount,
             ordersCount,
-            totalRevenue
+            totalRevenue,
+            userCount
         }}>
             {children}
         </AdminContext.Provider>

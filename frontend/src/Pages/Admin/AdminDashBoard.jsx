@@ -10,7 +10,7 @@ import { currencyFormat } from "../../utils/currency";
 const AdminDashboard = () => {
   const navigate = useNavigate();
    const {setToken, user } = useContext(CartContext);
-   const {productsCount,ordersCount, totalRevenue} = useContext(AdminContext);
+   const {productsCount,ordersCount, totalRevenue, userCount} = useContext(AdminContext);
 
   function handleLogout() {
     localStorage.removeItem("token");
@@ -62,7 +62,7 @@ const AdminDashboard = () => {
 
             <div className="stat-card">
               <h4>Total Users</h4>
-              <p>300</p>
+              <p>{userCount}</p>
             </div>
 
             <div className="stat-card">
