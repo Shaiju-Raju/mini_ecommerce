@@ -101,3 +101,61 @@
   background: black;
   color: white;
 }
+
+
+/* Small devices (phones, portrait) */
+@media (max-width: 480px) {
+  .containerStyle {
+    grid-template-columns: 1fr; /* Single column */
+    padding: 10px;
+    gap: 10px;
+  }
+
+  .search-bar {
+    width: 150px; /* Smaller search bar */
+  }
+
+  .spinner {
+    width: 40px;
+    height: 40px;
+    border-width: 4px;
+  }
+
+  .pagination button {
+    padding: 6px 10px;
+  }
+}
+
+/* Medium devices (tablets, landscape) */
+@media (max-width: 768px) {
+  .containerStyle {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+    padding: 15px;
+  }
+
+  .search-bar {
+    width: 200px;
+  }
+
+  .spinner {
+    width: 45px;
+    height: 45px;
+    border-width: 5px;
+  }
+
+  .pagination button {
+    padding: 7px 12px;
+  }
+}
+
+/* Large devices (desktops) */
+@media (min-width: 1025px) {
+  .containerStyle {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 2fr));
+  }
+
+  .search-bar {
+    width: 260px;
+  }
+}

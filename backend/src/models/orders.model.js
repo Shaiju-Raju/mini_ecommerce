@@ -31,7 +31,19 @@ export const getAllOrdersModel = async () => {
     const result = await pool.query(
         "SELECT * FROM orders ORDER BY created_at DESC"
     );
-    return result.rows;
+    const ordersCount = await pool.query(
+        "SELECT COUNT(*) FROM orders"
+    );
+
+    const totalRevenue = result.rows.reduce((sum, order) => {
+        return sum + Number(order.total)
+    },0)
+
+    return {
+        orders: result.rows,
+        ordersCount: parseInt(ordersCount.rows[0].count),
+        totalRevenue: totalRevenue
+    } 
 };
 
 export const updateOrderStatusModel = async (orderId, status) => {

@@ -10,7 +10,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Orders from "./Pages/Orders";
 import OrderDetails from "./Pages/OrderDetails";
-import AdminDashBoard from "./Pages/AdminDashBoard";
+import AdminDashBoard from "./Pages/Admin/AdminDashBoard";
 import AdminRoute from "./Routes/AdminRoute";
 import UserRoute from "./Routes/UserRoute";
 import RoleRedirect from "./Routes/RoleRedirect";

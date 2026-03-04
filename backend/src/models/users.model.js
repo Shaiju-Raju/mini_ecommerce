@@ -25,3 +25,4 @@ export const userProfile = async (id) => {
     );
     return result.rows[0];
 }
+

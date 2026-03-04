@@ -1,0 +1,81 @@
+import { useContext } from "react";
+import "./AdminDashBoard.css";
+import { useNavigate } from "react-router-dom";
+import { CartContext } from "../../Components/CartContext";
+import{AdminContext} from "../Admin/Components/AdminContext"
+import { toast } from "react-toastify";
+import { currencyFormat } from "../../utils/currency";
+
+
+const AdminDashboard = () => {
+  const navigate = useNavigate();
+   const {setToken, user } = useContext(CartContext);
+   const {productsCount,ordersCount, totalRevenue} = useContext(AdminContext);
+
+  function handleLogout() {
+    localStorage.removeItem("token");
+    setToken(null);
+    toast.success("Logged out successfully", {
+    autoClose: 1000,});
+    navigate("/login");
+  }
+
+  
+
+  return (
+    <div className="admin-container">
+
+      {/* Sidebar */}
+      <aside className="admin-sidebar">
+        <h2 className="logo">Admin Panel</h2>
+
+        <ul className="nav-links">
+          <li>Dashboard</li>
+          <li>Add Product</li>
+          <li>View Products</li>
+          <li>Orders</li>
+          <li className="logout" onClick={handleLogout}>Logout</li>
+        </ul>
+      </aside>
+
+      {/* Main Section */}
+      <div className="admin-main">
+
+        {/* Topbar */}
+        <header className="admin-topbar">
+          <h3>Welcome, {user}</h3>
+        </header>
+
+        {/* Content Area */}
+        <div className="admin-content">
+
+          <div className="stats-grid">
+            <div className="stat-card">
+              <h4>Total Products</h4>
+              <p>{productsCount}</p>
+            </div>
+
+            <div className="stat-card">
+              <h4>Total Orders</h4>
+              <p>{ordersCount}</p>
+            </div>
+
+            <div className="stat-card">
+              <h4>Total Users</h4>
+              <p>300</p>
+            </div>
+
+            <div className="stat-card">
+              <h4>Total Revenue</h4>
+              <p>{currencyFormat (totalRevenue)}</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  );
+};
+
+export default AdminDashboard;

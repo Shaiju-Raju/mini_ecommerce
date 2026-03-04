@@ -3,11 +3,12 @@ import * as Product from "../models/product.model.js";
 export async function getProducts(req, res) {
     try {
         const page = parseInt(req.query.page) || 1;
-        const limit = parseInt(req.query.limit) || 8;
+        const limit = parseInt(req.query.limit) || 8 ;
         const search = req.query.search || "";
 
         const product = await Product.getAllProducts(page, limit, search);
         res.status(200).json(product);
+        
         
     } catch (err) {
         console.error("Get Products Error:", err);
