@@ -5,6 +5,7 @@ import { CartContext } from "../../Components/CartContext";
 import { toast } from "react-toastify";
 import AdminHome from "./AdminHome";
 import AddProduct from "./AddProduct";
+import ViewProducts from "./ViewProducts";
 
 
 
@@ -33,8 +34,8 @@ const AdminDashboard = () => {
         <ul className="nav-links">
           <li onClick={() => setActiveSection("dashboard")}>Dashboard</li>
           <li onClick={() => setActiveSection("addProduct")}>Add Product</li>
-          <li>View Products</li>
-          <li>Orders</li>
+          <li onClick={() => setActiveSection("viewProducts")}>View Products</li>
+          <li onClick={() => setActiveSection("orders")}>Orders</li>
           <li className="logout" onClick={handleLogout}>Logout</li>
         </ul>
       </aside>
@@ -52,6 +53,7 @@ const AdminDashboard = () => {
           
           {activeSection === "dashboard" && <AdminHome />}
           {activeSection === "addProduct" && <AddProduct />}
+          {activeSection === "viewProducts" && <ViewProducts />}
 
           </div>
 

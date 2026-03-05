@@ -9,12 +9,11 @@ export const AdminProvider = ({children}) => {
     const [totalRevenue, setTotalRevenue] = useState(0);
     const [userCount, setUserCount] = useState(0);
     const {token} = useContext(CartContext);
+    const [products, setProducts] = useState([]);
 
 
 
     //Fetching products
-    useEffect (() => {
-  
         const fetchProducts = async () => {
             try {
 
@@ -23,14 +22,18 @@ export const AdminProvider = ({children}) => {
                 );
 
                 setProductsCount(response.data.totalProducts);
+                setProducts(response.data.products)
 
             } catch (err) {
                 setError("Unable to load products");
                 console.log(err);
             }
         }
-        fetchProducts();
-    },[]);
+
+        useEffect(() => {
+            fetchProducts();
+        }, []);
+
 
     //Fetcihng Orders
 
@@ -70,7 +73,8 @@ export const AdminProvider = ({children}) => {
             productsCount,
             ordersCount,
             totalRevenue,
-            userCount
+            userCount,
+            products
         }}>
             {children}
         </AdminContext.Provider>
