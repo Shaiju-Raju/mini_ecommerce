@@ -1,16 +1,17 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import "./AdminDashBoard.css";
 import { useNavigate } from "react-router-dom";
 import { CartContext } from "../../Components/CartContext";
-import{AdminContext} from "../Admin/Components/AdminContext"
 import { toast } from "react-toastify";
-import { currencyFormat } from "../../utils/currency";
+import AdminHome from "./AdminHome";
+import AddProduct from "./AddProduct";
+
 
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
    const {setToken, user } = useContext(CartContext);
-   const {productsCount,ordersCount, totalRevenue, userCount} = useContext(AdminContext);
+   const [activeSection, setActiveSection] = useState("dashboard");
 
   function handleLogout() {
     localStorage.removeItem("token");
@@ -30,8 +31,8 @@ const AdminDashboard = () => {
         <h2 className="logo">Admin Panel</h2>
 
         <ul className="nav-links">
-          <li>Dashboard</li>
-          <li>Add Product</li>
+          <li onClick={() => setActiveSection("dashboard")}>Dashboard</li>
+          <li onClick={() => setActiveSection("addProduct")}>Add Product</li>
           <li>View Products</li>
           <li>Orders</li>
           <li className="logout" onClick={handleLogout}>Logout</li>
@@ -48,33 +49,17 @@ const AdminDashboard = () => {
 
         {/* Content Area */}
         <div className="admin-content">
+          
+          {activeSection === "dashboard" && <AdminHome />}
+          {activeSection === "addProduct" && <AddProduct />}
 
-          <div className="stats-grid">
-            <div className="stat-card">
-              <h4>Total Products</h4>
-              <p>{productsCount}</p>
-            </div>
-
-            <div className="stat-card">
-              <h4>Total Orders</h4>
-              <p>{ordersCount}</p>
-            </div>
-
-            <div className="stat-card">
-              <h4>Total Users</h4>
-              <p>{userCount}</p>
-            </div>
-
-            <div className="stat-card">
-              <h4>Total Revenue</h4>
-              <p>{currencyFormat (totalRevenue)}</p>
-            </div>
           </div>
 
         </div>
+
       </div>
 
-    </div>
+  
   );
 };
 

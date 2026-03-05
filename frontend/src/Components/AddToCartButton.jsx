@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { CartContext } from "./CartContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 
 export default function AddToCartButton ({productId}) {
@@ -31,6 +32,9 @@ export default function AddToCartButton ({productId}) {
 
 
         setCartCount(res.data.totalItems )
+        toast.success("Item added to Cart", {
+        autoClose: 500,});
+
 
         } catch (err) {
             if(err.response?.status === 401){

@@ -56,6 +56,7 @@ export const getProductById = async (id) => {
 export const createProduct = async (product) => {
     const {title, description, price, image_url, stock} = product;
 
+
     const result = await pool.query(`
        INSERT INTO products (title, description, price, image_url, stock)
        VALUES ($1, $2, $3, $4, $5)
