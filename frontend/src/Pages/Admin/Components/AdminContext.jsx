@@ -74,7 +74,8 @@ export const AdminProvider = ({children}) => {
             ordersCount,
             totalRevenue,
             userCount,
-            products
+            products,
+            fetchProducts
         }}>
             {children}
         </AdminContext.Provider>

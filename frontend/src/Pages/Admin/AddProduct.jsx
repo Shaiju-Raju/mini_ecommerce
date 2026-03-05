@@ -3,8 +3,10 @@ import axios  from "axios";
 import { useState, useContext } from "react";
 import { CartContext } from "../../Components/CartContext";
 import { toast } from "react-toastify";
+import { AdminContext } from "./Components/AdminContext";
 export default function AddProduct() {
   const {token} = useContext(CartContext);
+  const {fetchProducts} = useContext(AdminContext)
   const [formData, setFormData] = useState ({
     title: "",
     description: "",
@@ -43,7 +45,10 @@ export default function AddProduct() {
 
     toast.success("Product Added Successfully", {
     autoClose: 800,});
-        setFormData({
+
+    fetchProducts();
+
+    setFormData({
       title: "",
       description: "",
       price: "",
