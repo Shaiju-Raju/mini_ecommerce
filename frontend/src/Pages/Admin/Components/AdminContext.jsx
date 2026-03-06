@@ -54,6 +54,7 @@ export const AdminProvider = ({children}) => {
     // Fetching user Details
 
     useEffect(() => {
+        if (!token) return;
         const fetchUserDetails = async () => {
             const response = await axios.get("http://localhost:3000/api/users/admin/all",{
                 headers: {

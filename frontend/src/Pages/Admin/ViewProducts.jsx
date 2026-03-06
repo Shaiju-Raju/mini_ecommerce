@@ -8,9 +8,11 @@ import EditProductPopup from "./EditProductPopup";
 export default function ViewProducts() {
   const {products} = useContext(AdminContext);
   const [showPopup, setShowPopup] = useState(false);
-  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [selectedProduct, setSelectedProduct] = useState(null)
+
+
   const handleEdit = (product) => {
-    setSelectedProduct(product);
+    setSelectedProduct(product)
     setShowPopup(true);
   };
 
@@ -34,7 +36,7 @@ export default function ViewProducts() {
 
         <tbody>
 
-          {products.map((product, index) => (
+        {products.map((product, index) => (
           <tr key={product.id}>
             <td>{index + 1}</td>
             <td>
@@ -44,31 +46,20 @@ export default function ViewProducts() {
             <td>{currencyFormat(product.price)}</td>
             <td>{product.stock}</td>
             <td>
-              <button className="edit-btn" onClick={() => handleEdit ({
-                title: "Wireless Mouse",
-                description: "High precision mouse",
-                price: 899,
-                stock: 20,
-                image_url: "image"
-              })}>
+              <button className="edit-btn" onClick={() => handleEdit ((product) )}>
               Edit</button>
-              {showPopup && (
-                <EditProductPopup
-                  product={selectedProduct}
-                  closePopup={() => setShowPopup(false)}
-                />
-              )}
-
               <button className="delete-btn">Delete</button>
             </td>
           </tr>
-          ))}
-
-          
-
+        ))}
         </tbody>
-
       </table>
+      {showPopup && (
+        <EditProductPopup
+          product={selectedProduct}
+          closePopup={() => setShowPopup(false)}
+        />
+      )}
 
       {/* <Pagination 
         page={page} 
