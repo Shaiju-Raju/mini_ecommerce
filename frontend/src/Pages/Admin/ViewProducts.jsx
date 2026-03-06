@@ -1,12 +1,18 @@
 import "./ViewProducts.css";
-import { useContext } from "react";
+import { useContext,useState } from "react";
 import { AdminContext } from "./Components/AdminContext";
 import { currencyFormat } from "../../utils/currency";
 import Pagination from "../../Components/Pagination";
+import EditProductPopup from "./EditProductPopup";
 
 export default function ViewProducts() {
   const {products} = useContext(AdminContext);
-
+  const [showPopup, setShowPopup] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const handleEdit = (product) => {
+    setSelectedProduct(product);
+    setShowPopup(true);
+  };
 
   return (
     <div className="view-products">
@@ -38,7 +44,21 @@ export default function ViewProducts() {
             <td>{currencyFormat(product.price)}</td>
             <td>{product.stock}</td>
             <td>
-              <button className="edit-btn">Edit</button>
+              <button className="edit-btn" onClick={() => handleEdit ({
+                title: "Wireless Mouse",
+                description: "High precision mouse",
+                price: 899,
+                stock: 20,
+                image_url: "image"
+              })}>
+              Edit</button>
+              {showPopup && (
+                <EditProductPopup
+                  product={selectedProduct}
+                  closePopup={() => setShowPopup(false)}
+                />
+              )}
+
               <button className="delete-btn">Delete</button>
             </td>
           </tr>

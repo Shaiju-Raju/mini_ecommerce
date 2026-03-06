@@ -44,6 +44,7 @@ export default function Home() {
                 setLoading(false);
             }
         }   
+        fetchProducts(); 
     },[page, search]);
 
     if (loading) {
