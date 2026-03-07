@@ -78,8 +78,6 @@ export default function EditProductPopup({ product, closePopup }) {
         }
     }
 
-
-
   return (
     <div className="popup-overlay" onClick={closePopup}>
 
