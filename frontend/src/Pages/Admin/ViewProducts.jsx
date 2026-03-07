@@ -19,24 +19,24 @@ export default function ViewProducts() {
     setShowPopup(true);
   };
 
-  const handleDelete = async (id)=> {
-    const confirmDelete = window.confirm("Are you sure you want to delete this product?");
-    if(!confirmDelete) return;
-
+  const toggleProductStatus = async (product) => {
     try {
-      await axios.delete(`http://localhost:3000/api/products/${id}`,{
-        headers:{
-          Authorization: `Bearer ${token}`
+      await axios.patch(
+        `http://localhost:3000/api/products/${product.id}/status`,
+        { is_active: !product.is_active },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
         }
-      })
-      alert("Data Deleted Successfully");
+      );
+
       fetchProducts();
 
     } catch (err) {
-      console.log("error in deleteing data", err);
-
+      console.log("Error updating product status", err);
     }
-  }
+  };
 
   return (
     <div className="view-products">
@@ -60,7 +60,10 @@ export default function ViewProducts() {
         <tbody>
 
         {products.map((product, index) => (
-          <tr key={product.id}>
+          <tr 
+            key={product.id}
+            className={!product.is_active ? "disabled-row" : ""}
+          >
             <td>{index + 1}</td>
             <td>
               <img src={product.image_url} alt="product"/>
@@ -80,7 +83,10 @@ export default function ViewProducts() {
             <td>
               <button className="edit-btn" onClick={() => handleEdit ((product) )}>
               Edit</button>
-              <button className="delete-btn" onClick={() => handleDelete(product.id)}>Delete</button>
+              <button className="toggle-btn" onClick={() => toggleProductStatus(product)}>
+                {console.log(product.is_active)}
+                {product.is_active ? "Disable" : "Enable"}
+              </button>
             </td>
           </tr>
         ))}

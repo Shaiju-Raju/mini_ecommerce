@@ -18,8 +18,11 @@ export const AdminProvider = ({children}) => {
             try {
 
                 const response = await axios.get(
-                    "http://localhost:3000/api/products"
-                );
+                    "http://localhost:3000/api/products/admin",{
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        }
+                    });
 
                 setProductsCount(response.data.totalProducts);
                 setProducts(response.data.products)

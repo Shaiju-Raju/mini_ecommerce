@@ -9,6 +9,7 @@ const createProductsTable = async () => {
       price NUMERIC(10,2) NOT NULL,
       image_url TEXT,
       stock INT DEFAULT 0,
+      is_active BOOLEAN DEFAULT true,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
   `;

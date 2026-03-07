@@ -7,16 +7,18 @@ import {
     getProduct,
     addProduct,
     editProduct,
-    removeProduct
+    toggleProductStatus,
+    getActiveProducts
 } from "../controllers/product.controller.js";
 
 const router = express.Router();
 
 
-router.get("/",getProducts);
+router.get("/admin",authMiddleware,roleMiddleware("admin"),getProducts);
+router.get("/",getActiveProducts);
 router.get("/:id",getProduct);
 router.post("/", authMiddleware, roleMiddleware ("admin"), addProduct);
 router.put("/:id", authMiddleware, roleMiddleware("admin"), editProduct);
-router.delete("/:id", authMiddleware, roleMiddleware("admin"), removeProduct);
+router.patch("/:id/status", authMiddleware, roleMiddleware("admin"), toggleProductStatus);
 
 export default router

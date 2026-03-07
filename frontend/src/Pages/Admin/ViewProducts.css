@@ -51,14 +51,7 @@
   cursor: pointer;
 }
 
-.delete-btn {
-  background-color: #ef4444;
-  color: white;
-  border: none;
-  padding: 7px 14px;
-  border-radius: 5px;
-  cursor: pointer;
-}
+
 
 /* Hover */
 .product-table tbody tr:hover {
@@ -86,3 +79,30 @@
   background:#ffe6e6;
   color:#e53935;
 }
+
+.toggle-btn{
+  background:#ff9800;
+  color:white;
+  border:none;
+  padding:6px 12px;
+  border-radius:5px;
+  cursor:pointer;
+}
+
+.toggle-btn:hover{
+  background:#f57c00;
+}
+
+.disabled-row{
+  opacity: 0.5;
+  filter: grayscale(60%);
+}
+
+.status-badge {
+  margin-left: 8px;
+  padding: 2px 6px;
+  font-size: 12px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
