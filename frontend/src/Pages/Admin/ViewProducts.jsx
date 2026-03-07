@@ -6,6 +6,7 @@ import Pagination from "../../Components/Pagination";
 import EditProductPopup from "./EditProductPopup";
 import axios from "axios";
 import { CartContext } from "../../Components/CartContext";
+import { toast } from "react-toastify";
 
 export default function ViewProducts() {
   const {products, fetchProducts} = useContext(AdminContext);
@@ -30,6 +31,9 @@ export default function ViewProducts() {
           }
         }
       );
+
+      toast.success(`Product ${product.is_active ? "disabled" : "enabled"}`, {
+      autoClose: 800,});
 
       fetchProducts();
 
