@@ -1,7 +1,32 @@
 import "./Orders.css";
 import "./ViewProducts.css";
+import { AdminContext } from "./Components/AdminContext";
+import { useContext, useEffect, useState } from "react";
+import { currencyFormat } from "../../utils/currency";
+import { formatDateTime } from "../../utils/date";
 
 export default function Orders() {
+    const {fetchOrders, fetchUserDetails} =useContext(AdminContext);
+    const [orders, setOrders] = useState([]);
+    const [users, setUsers] = useState ([]);
+
+    // Fetching all Orders
+    useEffect (() => {
+        const getOrders = async () => {
+            setOrders(await fetchOrders())
+        }
+        getOrders();
+    },[])
+
+    //Fetching all user details
+    useEffect( () => {
+        const getUsers = async () => {
+            setUsers(await fetchUserDetails());
+        }
+        getUsers();
+    },[])
+
+
   return (
     <div className="view-products">
 
@@ -23,46 +48,21 @@ export default function Orders() {
         </thead>
 
         <tbody>
-
-          <tr>
-            <td>1</td>
-            <td>#ORD1021</td>
-            <td>Rahul</td>
-            <td>3</td>
-            <td>₹2,450</td>
-            <td><span className="order-status pending">Pending</span></td>
-            <td>12 Mar 2026</td>
+          {orders.map((order, index) => (
+          <tr key={order.id}>
+            
+            <td>{index +1}</td>
+            <td>{`#ORD${order.id}`}</td>
+            <td>{users.find(user => user.id === order.user_id)?.name || "Unknown"}</td>
+            <td>{order.total_quantity}</td>
+            <td>{currencyFormat(Number(order.sub_total) + Number(order.shipping_charge))}</td>
+            <td><span className="order-status pending">{order.status}</span></td>
+            <td>{formatDateTime(order.created_at)}</td>
             <td>
               <button className="view-btn">View</button>
             </td>
           </tr>
-
-          <tr>
-            <td>2</td>
-            <td>#ORD1022</td>
-            <td>Anil</td>
-            <td>1</td>
-            <td>₹900</td>
-            <td><span className="order-status shipped">Shipped</span></td>
-            <td>11 Mar 2026</td>
-            <td>
-              <button className="view-btn">View</button>
-            </td>
-          </tr>
-
-          <tr>
-            <td>3</td>
-            <td>#ORD1023</td>
-            <td>Priya</td>
-            <td>4</td>
-            <td>₹5,200</td>
-            <td><span className="order-status delivered">Delivered</span></td>
-            <td>10 Mar 2026</td>
-            <td>
-              <button className="view-btn">View</button>
-            </td>
-          </tr>
-
+          ))}
         </tbody>
 
       </table>

@@ -50,34 +50,40 @@
 
         //Fetcihng Orders
 
-        useEffect (() => {
-            if (!token) return; 
-            const fetchOrders = async () => {
-                const response = await axios.get("http://localhost:3000/api/orders/admin/all", {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    },
-                });
-                SetOrdersCount(response.data.ordersCount)
-                setTotalRevenue(response.data.totalRevenue);
-            }
+        
+        const fetchOrders = async () => {
+            const response = await axios.get("http://localhost:3000/api/orders/admin/all", {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                },
+            });
+            SetOrdersCount(response.data.ordersCount)
+            setTotalRevenue(response.data.totalRevenue);
+            return response.data.orders;
+        }
+          
+       
+         useEffect (() => {
+            if (!token) return;
             fetchOrders();
-        },[token])
+          },[token])   
 
         // Fetching user Details
 
-        useEffect(() => {
+        const fetchUserDetails = async () => {
+            const response = await axios.get("http://localhost:3000/api/users/admin/all",{
+                headers: {
+                    Authorization: `Bearer ${token}`
+                },
+            });
+            setUserCount(response.data.totalUsers);
+            return response.data.users;
+        }
+            
+        useEffect (() => {
             if (!token) return;
-            const fetchUserDetails = async () => {
-                const response = await axios.get("http://localhost:3000/api/users/admin/all",{
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    },
-                });
-                setUserCount(response.data.totalUsers);
-            }
             fetchUserDetails();
-        },[token])
+        },[token])   
 
 
 
@@ -90,7 +96,9 @@
                 userCount,
                 products,
                 fetchProducts,
-                totalPage
+                totalPage,
+                fetchOrders,
+                fetchUserDetails
 
             }}>
                 {children}
