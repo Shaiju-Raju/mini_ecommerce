@@ -115,7 +115,6 @@ export default function AddProduct() {
                 name="stock"
                 value={formData.stock}
                 onChange={handleChange}
-                defaultValue="25"
                 required
               />
             </div>

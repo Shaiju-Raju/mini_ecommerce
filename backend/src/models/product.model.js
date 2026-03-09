@@ -29,7 +29,7 @@ export const getAllProducts = async (page = 1, limit= 8, search = "") => {
         dataQuery += " ORDER BY created_at DESC LIMIT $2 OFFSET $3";
         values.push(limit,offset)
     } else {
-        dataQuery += " ORDER BY is_active DESC LIMIT $1 OFFSET $2";
+        dataQuery += " ORDER BY is_active DESC, id DESC LIMIT $1 OFFSET $2";
         values.push(limit,offset);
     }
 

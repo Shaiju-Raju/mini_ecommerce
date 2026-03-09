@@ -1,5 +1,5 @@
 import "./ViewProducts.css";
-import { useContext,useState } from "react";
+import { useContext,useEffect,useState } from "react";
 import { AdminContext } from "./Components/AdminContext";
 import { currencyFormat } from "../../utils/currency";
 import Pagination from "../../Components/Pagination";
@@ -7,18 +7,37 @@ import EditProductPopup from "./EditProductPopup";
 import axios from "axios";
 import { CartContext } from "../../Components/CartContext";
 import { toast } from "react-toastify";
+import { useLocation } from "react-router-dom";
+
 
 export default function ViewProducts() {
-  const {products, fetchProducts} = useContext(AdminContext);
+  const {products, fetchProducts, totalPage} = useContext(AdminContext);
   const {token} = useContext(CartContext);
   const [showPopup, setShowPopup] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null)
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const pageFromUrl = queryParams.get("page");
+  const [page, setPage] = useState(Number(pageFromUrl) || 1);
+  const [search, setSearch] = useState("");
+
+
+  useEffect (() => {
+    fetchProducts(page)
+  },[page])
 
 
   const handleEdit = (product) => {
     setSelectedProduct(product)
     setShowPopup(true);
   };
+
+  const handleSearch = () => {
+    console.log(search)
+    fetchProducts(1,search)
+    setSearch("")
+  }
+
 
   const toggleProductStatus = async (product) => {
 
@@ -39,7 +58,7 @@ export default function ViewProducts() {
       toast.success(`Product ${product.is_active ? "disabled" : "enabled"}`, {
       autoClose: 800,});
 
-      fetchProducts();
+      fetchProducts(page);
 
     } catch (err) {
       console.log("Error updating product status", err);
@@ -49,7 +68,25 @@ export default function ViewProducts() {
   return (
     <div className="view-products">
 
-      <h2>View Products</h2>
+      <div className="view-header">
+
+        <h2>View Products</h2>
+
+        <div className="search-box">
+          <input 
+            value={search}
+            type="text" 
+            placeholder="Search products..."
+            onChange={(e) => setSearch(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+             />
+          <button className="search-btn" onClick={handleSearch}>
+            
+            🔍
+          </button>
+        </div>
+
+      </div>
 
       <table className="product-table">
 
@@ -72,7 +109,7 @@ export default function ViewProducts() {
             key={product.id}
             className={!product.is_active ? "disabled-row" : ""}
           >
-            <td>{index + 1}</td>
+            <td>{(page -1) * 10 + (index + 1)}</td>
             <td>
               <img src={product.image_url} alt="product"/>
             </td>
@@ -89,10 +126,10 @@ export default function ViewProducts() {
               )}
             </td>
             <td>
-              <button className="edit-btn" onClick={() => handleEdit ((product) )}>
+              <button className="edit-btn" onClick={() => handleEdit (product)}>
               Edit</button>
               <button className="toggle-btn" onClick={() => toggleProductStatus(product)}>
-                {console.log(product.is_active)}
+  
                 {product.is_active ? "Disable" : "Enable"}
               </button>
             </td>
@@ -107,12 +144,13 @@ export default function ViewProducts() {
         />
       )}
 
-      {/* <Pagination 
+      <Pagination 
         page={page} 
-        totalPages={totalPages} 
+        totalPages={totalPage} 
         setPage={setPage} 
-    /> */}
+    />
 
     </div>
   );
 }
+
