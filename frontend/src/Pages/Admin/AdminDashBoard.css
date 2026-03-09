@@ -57,7 +57,7 @@
 /* Content */
 .admin-content {
   padding: 30px;
-  align-items: center;
+  width: 100%;
 }
 
 /* Stats Grid */

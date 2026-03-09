@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import AdminHome from "./AdminHome";
 import AddProduct from "./AddProduct";
 import ViewProducts from "./ViewProducts";
+import Orders from "./Orders";
 
 
 
@@ -54,6 +55,8 @@ const AdminDashboard = () => {
           {activeSection === "dashboard" && <AdminHome />}
           {activeSection === "addProduct" && <AddProduct />}
           {activeSection === "viewProducts" && <ViewProducts />}
+          {activeSection === "orders" && <Orders />}
+
 
           </div>
 
