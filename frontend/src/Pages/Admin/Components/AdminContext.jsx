@@ -35,7 +35,7 @@ export const AdminProvider = ({children}) => {
 
         useEffect(() => {
             fetchProducts();
-        }, []);
+        }, [token]);
 
 
     //Fetcihng Orders

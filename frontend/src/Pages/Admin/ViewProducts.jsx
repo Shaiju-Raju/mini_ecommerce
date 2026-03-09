@@ -21,6 +21,10 @@ export default function ViewProducts() {
   };
 
   const toggleProductStatus = async (product) => {
+
+    const response = window.confirm(`Are you sure you want to ${product.is_active ? "disabled" : "enabled"} ?`)
+    if(!response) return
+
     try {
       await axios.patch(
         `http://localhost:3000/api/products/${product.id}/status`,
