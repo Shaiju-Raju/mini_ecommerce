@@ -68,8 +68,25 @@
             fetchOrders();
           },[token])   
 
-        // Fetching user Details
 
+        //Fetching order Details
+        const fetchOrderDetails = async (id) => {
+            try {
+                const response = await axios.get(`http://localhost:3000/api/orders/${id}`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    },
+                } );
+
+                return response.data
+
+                
+            } catch (err) {
+                console.log("Error in fetching Order", err);
+            }
+        }
+
+        // Fetching user Details
         const fetchUserDetails = async () => {
             const response = await axios.get("http://localhost:3000/api/users/admin/all",{
                 headers: {
@@ -98,7 +115,8 @@
                 fetchProducts,
                 totalPage,
                 fetchOrders,
-                fetchUserDetails
+                fetchUserDetails,
+                fetchOrderDetails
 
             }}>
                 {children}
