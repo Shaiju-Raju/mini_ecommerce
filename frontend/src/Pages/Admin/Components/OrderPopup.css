@@ -117,3 +117,69 @@
   background:#f0fdf4;
   font-size:15px;
 }
+
+/* STATUS SECTION */
+
+.order-status-section{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin:15px 0;
+}
+
+.status-dropdown{
+  padding:6px 10px;
+  border:1px solid #ccc;
+  border-radius:5px;
+  font-size:14px;
+}
+
+.update-status-btn{
+  background:#007bff;
+  color:white;
+  border:none;
+  padding:6px 12px;
+  border-radius:5px;
+  cursor:pointer;
+}
+
+.update-status-btn:hover{
+  opacity:0.9;
+}
+
+
+/* SHIPPING ADDRESS */
+
+.shipping-address{
+  margin:15px 0;
+  padding:12px;
+  border:1px solid #eee;
+  border-radius:6px;
+  background:#fafafa;
+}
+
+.shipping-address h4{
+  margin-bottom:8px;
+}
+
+.shipping-address p{
+  margin:2px 0;
+}
+
+
+/* TABLE TOTAL */
+
+.table-total td{
+  font-weight:500;
+  background:#fafafa;
+}
+
+.total-label{
+  text-align:right;
+  padding-right:15px;
+}
+
+.grand-total-row td{
+  font-weight:700;
+  background:#f1f5f9;
+}

@@ -71,7 +71,7 @@ export default function Orders() {
             <td>{users.find(user => user.id === order.user_id)?.name || "Unknown"}</td>
             <td>{order.total_quantity}</td>
             <td>{currencyFormat(Number(order.sub_total) + Number(order.shipping_charge))}</td>
-            <td><span className="order-status pending">{order.status}</span></td>
+            <td><span className={`order-status ${order.status.toLowerCase()}`}>{order.status}</span></td>
             <td>{formatDateTime(order.created_at)}</td>
             <td>
               <button className="view-btn" onClick={()=> handleView (order)}>View</button>
