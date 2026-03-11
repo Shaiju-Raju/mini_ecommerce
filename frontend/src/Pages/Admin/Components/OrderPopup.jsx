@@ -1,11 +1,15 @@
 import { currencyFormat } from "../../../utils/currency";
 import "./OrderPopup.css";
 import { AdminContext } from "./AdminContext";
+import { CartContext } from "../../../Components/CartContext";
 import { useContext, useEffect, useState } from "react";
+import axios from "axios";
+import { toast } from "react-toastify";
 
-export default function OrdersPopup({ order, closePopup, userName }) {
+export default function OrdersPopup({ order, closePopup, userName, refreshOrders }) {
 
   const { fetchOrderDetails } = useContext(AdminContext);
+  const {token} = useContext(CartContext);
   const [orderItems, setOrderItems] = useState([]);
   const [status, setStatus] = useState(order?.status || "");
   const [address, setAddress] = useState([]);
@@ -23,6 +27,35 @@ export default function OrdersPopup({ order, closePopup, userName }) {
       setStatus(order.status);
     }
   }, [order]);
+
+  const handleUpdate = async() => {
+    if(!token) {
+      alert("Please login to add items");
+      navigate("/login");
+    return;
+    }
+
+    try {
+      await axios.put(`http://localhost:3000/api/orders/admin/${order.id}`,
+        {status},
+        {
+          headers:{
+            Authorization: `Bearer ${token}`
+          }
+        }
+      )
+      refreshOrders();   // ✅ reload orders table
+      closePopup(); 
+
+      toast.success("Status updated Successfully", {
+      autoClose: 800,});
+
+    } catch (err) {
+      console.log("error to update status", err);
+    }
+
+
+  }
 
   return (
     <div className="popup-overlay">
@@ -50,7 +83,7 @@ export default function OrdersPopup({ order, closePopup, userName }) {
               <option value="delivered">Delivered</option>
             </select>
 
-            <button className="update-status-btn">
+            <button className="update-status-btn" onClick={handleUpdate}>
               Update
             </button>
           </div>

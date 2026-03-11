@@ -16,11 +16,12 @@ export default function Orders() {
     const [userName, setUserName] = useState(null);
 
     // Fetching all Orders
+    const getOrders = async () => {
+        setOrders(await fetchOrders())
+    }
+
     useEffect (() => {
-        const getOrders = async () => {
-            setOrders(await fetchOrders())
-        }
-        getOrders();
+      getOrders();
     },[])
 
     //Fetching all user details
@@ -86,7 +87,7 @@ export default function Orders() {
           order = {selectedOrder}
           closePopup={() => setShowPopup(false)}
           userName = {userName}
-          
+          refreshOrders ={getOrders}
         />
       )}
 

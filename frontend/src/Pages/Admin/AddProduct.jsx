@@ -30,9 +30,9 @@ export default function AddProduct() {
         alert("Please login to add items");
         navigate("/login");
         return;
-
-
     }
+
+    
     try {
       await axios.post("http://localhost:3000/api/products",
         formData,
