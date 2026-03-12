@@ -111,11 +111,32 @@
   }
 }
 
-@media (max-width: 600px) {
-  .admin-container {
-    flex-direction: column;
+/* Keep admin shell responsiveness in AdminDashBoard.css (avoid conflicts). */
+
+/* Mobile: make Add Product form fit cleanly */
+@media (max-width: 767px) {
+  .form-card {
+    max-width: 100%;
+    padding: 16px;
+    border-radius: 12px;
   }
-  .admin-sidebar {
+
+  .product-form {
+    gap: 14px;
+  }
+
+  .form-row {
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .submit-btn {
     width: 100%;
   }
 }

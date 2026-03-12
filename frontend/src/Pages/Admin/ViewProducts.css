@@ -182,5 +182,29 @@
   }
 }
 
+/* Mobile: contain wide tables so the admin top bar stays usable */
+@media (max-width: 767px) {
+  .view-products {
+    padding: 14px;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .view-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .search-box {
+    width: 100%;
+  }
+
+  .search-box input {
+    width: 100%;
+  }
+}
+
 
 

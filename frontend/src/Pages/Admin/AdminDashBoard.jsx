@@ -14,6 +14,7 @@ const AdminDashboard = () => {
   const navigate = useNavigate();
    const {setToken, user } = useContext(CartContext);
    const [activeSection, setActiveSection] = useState("dashboard");
+   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
 
   function handleLogout() {
     localStorage.removeItem("token");
@@ -26,18 +27,35 @@ const AdminDashboard = () => {
   
 
   return (
-    <div className="admin-container">
+    <div className={`admin-container ${isMobileNavOpen ? "nav-open" : ""}`}>
+
+      <div
+        className={`admin-overlay ${isMobileNavOpen ? "show" : ""}`}
+        onClick={() => setIsMobileNavOpen(false)}
+      ></div>
+
+      <header className="admin-mobilebar">
+        <h2 className="logo">Admin Panel</h2>
+        <button
+          type="button"
+          className="admin-menu-btn"
+          aria-label="Menu"
+          onClick={() => setIsMobileNavOpen((v) => !v)}
+        >
+          {"\u2630"}
+        </button>
+      </header>
 
       {/* Sidebar */}
-      <aside className="admin-sidebar">
+      <aside className={`admin-sidebar ${isMobileNavOpen ? "open" : ""}`}>
         <h2 className="logo">Admin Panel</h2>
 
         <ul className="nav-links">
-          <li onClick={() => setActiveSection("dashboard")}>Dashboard</li>
-          <li onClick={() => setActiveSection("addProduct")}>Add Product</li>
-          <li onClick={() => setActiveSection("viewProducts")}>View Products</li>
-          <li onClick={() => setActiveSection("orders")}>Orders</li>
-          <li className="logout" onClick={handleLogout}>Logout</li>
+          <li onClick={() => { setActiveSection("dashboard"); setIsMobileNavOpen(false); }}>Dashboard</li>
+          <li onClick={() => { setActiveSection("addProduct"); setIsMobileNavOpen(false); }}>Add Product</li>
+          <li onClick={() => { setActiveSection("viewProducts"); setIsMobileNavOpen(false); }}>View Products</li>
+          <li onClick={() => { setActiveSection("orders"); setIsMobileNavOpen(false); }}>Orders</li>
+          <li className="logout" onClick={() => { handleLogout(); setIsMobileNavOpen(false); }}>Logout</li>
         </ul>
       </aside>
 

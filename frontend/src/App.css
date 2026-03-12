@@ -41,6 +41,28 @@
     padding: 0 12px;
     font-size: 14px;
   }
+
+  /* Mobile: make profile menu a compact popover */
+  .navbar .profile-dropdown {
+    top: calc(100% + 8px);
+    right: 0;
+    left: auto;
+    width: 190px;
+    min-width: 190px;
+    max-width: calc(100vw - 32px);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+  }
+
+  .navbar .profile-container:focus-within .profile-dropdown {
+    display: block;
+  }
+
+  .navbar .dropdown-item {
+    padding: 10px 12px;
+    font-size: 14px;
+  }
 }
 
 .nav-actions-row {
