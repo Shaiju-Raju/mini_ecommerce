@@ -144,3 +144,77 @@
 .place-order-btn:hover {
   background-color: #0f172a;
 }
+
+/* ================= MOBILE RESPONSIVE (NO DESKTOP CHANGES) ================= */
+@media (max-width: 767px) {
+  .checkout-page,
+  .checkout-page *,
+  .checkout-page *::before,
+  .checkout-page *::after {
+    box-sizing: border-box;
+  }
+
+  .checkout-page {
+    padding: 18px 14px;
+    overflow-x: hidden;
+  }
+
+  .checkout-title {
+    font-size: 22px;
+    margin-bottom: 16px;
+  }
+
+  .checkout-content {
+    flex-direction: column;
+    gap: 16px;
+    align-items: stretch; /* make left cards and summary card same width */
+  }
+
+  .checkout-left {
+    gap: 16px;
+    min-width: 0;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .checkout-section {
+    padding: 16px;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .form-grid input {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .full-width {
+    grid-column: auto;
+  }
+
+  .payment-card {
+    padding: 12px;
+    width: 100%;
+    max-width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .checkout-summary {
+    position: static;
+    top: auto;
+    padding: 16px;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .place-order-btn {
+    padding: 12px;
+    font-size: 15px;
+  }
+}

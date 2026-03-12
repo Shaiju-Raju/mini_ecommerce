@@ -223,8 +223,16 @@
 
 /* ================= MOBILE RESPONSIVE (NO DESKTOP CHANGES) ================= */
 @media (max-width: 767px) {
+  .cart-page,
+  .cart-page *,
+  .cart-page *::before,
+  .cart-page *::after {
+    box-sizing: border-box;
+  }
+
   .cart-page {
     padding: 18px 14px;
+    overflow-x: hidden;
   }
 
   .cart-title {
@@ -235,16 +243,22 @@
   .cart-content {
     flex-direction: column;
     gap: 16px;
+    align-items: stretch; /* make summary match item card width */
   }
 
   .cart-items {
     flex: 1;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
   }
 
   .cart-item {
     flex-direction: column;
     gap: 14px;
     padding: 16px;
+    width: 100%;
+    max-width: 100%;
   }
 
   .cart-image {
@@ -279,6 +293,10 @@
     position: static;
     top: auto;
     padding: 16px;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    align-self: stretch;
   }
 
   .checkout-btn {

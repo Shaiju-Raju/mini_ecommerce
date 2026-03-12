@@ -85,3 +85,51 @@
 .view-btn:hover {
   background: #333;
 }
+
+/* ================= MOBILE RESPONSIVE (NO DESKTOP CHANGES) ================= */
+@media (max-width: 767px) {
+  .orders-page,
+  .orders-page *,
+  .orders-page *::before,
+  .orders-page *::after {
+    box-sizing: border-box;
+  }
+
+  .orders-page {
+    margin: 18px auto;
+    padding: 14px;
+  }
+
+  .orders-title {
+    margin-bottom: 16px;
+    font-size: 22px;
+  }
+
+  .order-card {
+    padding: 16px;
+  }
+
+  .order-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .order-status {
+    align-self: flex-start;
+  }
+
+  .order-middle {
+    margin: 12px 0;
+    font-size: 14px;
+  }
+
+  .order-bottom {
+    text-align: left;
+  }
+
+  .view-btn {
+    width: 100%;
+    padding: 10px 14px;
+  }
+}

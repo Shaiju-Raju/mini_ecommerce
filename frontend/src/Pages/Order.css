@@ -96,3 +96,60 @@
 .continue-btn:hover {
   background-color: #0f172a;
 }
+
+/* ================= MOBILE RESPONSIVE (NO DESKTOP CHANGES) ================= */
+@media (max-width: 767px) {
+  .order-confirm-page,
+  .order-confirm-page *,
+  .order-confirm-page *::before,
+  .order-confirm-page *::after {
+    box-sizing: border-box;
+  }
+
+  .order-confirm-page {
+    padding: 18px 14px;
+    overflow-x: hidden;
+  }
+
+  .order-confirm-title {
+    margin-bottom: 16px;
+    font-size: 22px;
+  }
+
+  .order-confirm-content {
+    flex-direction: column;
+    gap: 16px;
+    align-items: stretch;
+  }
+
+  .order-confirm-left {
+    flex: 1;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .order-card {
+    padding: 16px;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .order-summary {
+    position: static;
+    top: auto;
+    padding: 16px;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .summary-row.total {
+    font-size: 16px;
+  }
+
+  .continue-btn {
+    font-size: 15px;
+    padding: 11px;
+  }
+}
