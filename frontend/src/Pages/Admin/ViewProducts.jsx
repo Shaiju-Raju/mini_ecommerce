@@ -8,6 +8,7 @@ import axios from "axios";
 import { CartContext } from "../../Components/CartContext";
 import { toast } from "react-toastify";
 import { useLocation } from "react-router-dom";
+const API_URL = import.meta.env.VITE_API_URL;
 
 
 export default function ViewProducts() {
@@ -46,7 +47,7 @@ export default function ViewProducts() {
 
     try {
       await axios.patch(
-        `http://localhost:3000/api/products/${product.id}/status`,
+        `${API_URL}/api/products/${product.id}/status`,
         { is_active: !product.is_active },
         {
           headers: {

@@ -4,6 +4,7 @@ import axios from "axios";
 import { CartContext } from "../Components/CartContext";
 import { currencyFormat } from "../utils/currency";
 import { useNavigate } from "react-router-dom";
+const API_URL = import.meta.env.VITE_API_URL;
 
 export default function OrderHistory() {
   const {token} = useContext(CartContext);
@@ -27,7 +28,7 @@ export default function OrderHistory() {
 useEffect (() => {
   const fetchOrders = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/api/orders", {
+      const response = await axios.get(`${API_URL}/api/orders`, {
         headers: {
           Authorization: `Bearer ${token}`
         },

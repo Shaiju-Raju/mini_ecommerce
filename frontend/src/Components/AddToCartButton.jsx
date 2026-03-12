@@ -3,6 +3,7 @@ import { CartContext } from "./CartContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+const API_URL = import.meta.env.VITE_API_URL;
 
 
 export default function AddToCartButton ({productId}) {
@@ -19,7 +20,7 @@ export default function AddToCartButton ({productId}) {
                 return;
             }
 
-            const res = await axios.post("http://localhost:3000/api/cart",{
+            const res = await axios.post(`${API_URL}/api/cart`,{
                 productId: productId,
                 quantity: 1,
                 },

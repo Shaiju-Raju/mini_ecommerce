@@ -1,5 +1,6 @@
 import axios from "axios";
 import { createContext, useState, useEffect } from "react";
+const API_URL = import.meta.env.VITE_API_URL;
 
 export const CartContext = createContext();
 export const CartProvider = ({children}) => {
@@ -30,7 +31,7 @@ export const CartProvider = ({children}) => {
         }
 
         try {
-            const res = await axios.get("http://localhost:3000/api/cart", {
+            const res = await axios.get(`${API_URL}/api/cart`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 },
@@ -66,7 +67,7 @@ export const CartProvider = ({children}) => {
             if (!token) return;
             
             try {
-                const res = await axios.get("http://localhost:3000/api/users/profile", {
+                const res = await axios.get(`${API_URL}/api/users/profile`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     },
@@ -85,7 +86,7 @@ export const CartProvider = ({children}) => {
     const placeOrder = async () => {
 
         try {
-            const res = await axios.post("http://localhost:3000/api/cart/checkout",
+            const res = await axios.post(`${API_URL}/api/cart/checkout`,
                 shippingData,
                 {
                     headers:{
@@ -104,7 +105,7 @@ export const CartProvider = ({children}) => {
     //Fetching ShippingRate
     useEffect (() => {
         const fetchShippingRate = async () => {
-            const response = await axios.get("http://localhost:3000/api/settings");
+            const response = await axios.get(`${API_URL}/api/settings`);
             if(response) {
                 setShippingRate(Number(response.data.shipping_rate));
             }

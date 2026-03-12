@@ -4,6 +4,7 @@ import { useState, useContext } from "react";
 import { CartContext } from "../../Components/CartContext";
 import { toast } from "react-toastify";
 import { AdminContext } from "./Components/AdminContext";
+const API_URL = import.meta.env.VITE_API_URL;
 export default function AddProduct() {
   const {token} = useContext(CartContext);
   const {fetchProducts} = useContext(AdminContext)
@@ -34,7 +35,7 @@ export default function AddProduct() {
 
     
     try {
-      await axios.post("http://localhost:3000/api/products",
+      await axios.post(`${API_URL}/api/products`,
         formData,
       {
         headers: {

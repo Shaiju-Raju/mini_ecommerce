@@ -3,6 +3,7 @@ import { currencyFormat } from "../utils/currency";
 import { CartContext } from "./CartContext";
 import axios from "axios";
 import { FaTrash } from "react-icons/fa";
+const API_URL = import.meta.env.VITE_API_URL;
 
 export default function CartItem ({item}) {
 const {token, fetchCart}  = useContext(CartContext);
@@ -10,7 +11,7 @@ const {token, fetchCart}  = useContext(CartContext);
  async function handleDelete() {
     try {
       await axios.delete(
-        `http://localhost:3000/api/cart/${item.product_id}`,
+        `${API_URL}/api/cart/${item.product_id}`,
         {
           headers:{
             Authorization: `Bearer ${token}`
@@ -35,7 +36,7 @@ const {token, fetchCart}  = useContext(CartContext);
      
 
       await axios.put(
-        `http://localhost:3000/api/cart/${item.id}`,{
+        `${API_URL}/api/cart/${item.id}`,{
           quantity: newQuantity
         },
         {

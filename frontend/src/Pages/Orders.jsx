@@ -4,6 +4,7 @@ import { useContext, useEffect, useState,} from "react";
 import { currencyFormat } from "../utils/currency";
 import { useParams,useNavigate } from "react-router-dom";
 import axios from "axios";
+const API_URL = import.meta.env.VITE_API_URL;
 
 
 export default function Orders () {
@@ -19,7 +20,7 @@ export default function Orders () {
     const fetchOrder = async () => {
         try {
             const res = await axios.get(
-                `http://localhost:3000/api/orders/${orderId}`,
+                `${API_URL}/api/orders/${orderId}`,
             {
                 headers: {
                     Authorization: `Bearer ${token}`

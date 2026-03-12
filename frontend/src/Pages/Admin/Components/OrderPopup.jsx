@@ -5,6 +5,7 @@ import { CartContext } from "../../../Components/CartContext";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+const API_URL = import.meta.env.VITE_API_URL;
 
 export default function OrdersPopup({ order, closePopup, userName, refreshOrders }) {
 
@@ -36,7 +37,7 @@ export default function OrdersPopup({ order, closePopup, userName, refreshOrders
     }
 
     try {
-      await axios.put(`http://localhost:3000/api/orders/admin/${order.id}`,
+      await axios.put(`${API_URL}/api/orders/admin/${order.id}`,
         {status},
         {
           headers:{

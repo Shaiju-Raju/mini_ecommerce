@@ -4,6 +4,7 @@ import Pagination from "../Components/Pagination";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import "./Home.css";
+const API_URL = import.meta.env.VITE_API_URL;
 
 
 export default function Home() {
@@ -30,7 +31,7 @@ export default function Home() {
             setLoading(true);
             try {
                 const response = await axios.get(
-                    `http://localhost:3000/api/products?page=${page}&limit=10&search=${search}`
+                    `${API_URL}/api/products?page=${page}&limit=10&search=${search}`
                 );
 
                 

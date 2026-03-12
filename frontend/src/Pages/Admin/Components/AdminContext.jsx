@@ -1,6 +1,7 @@
     import axios from "axios";
     import { createContext, useState, useEffect, useContext} from "react";
     import { CartContext } from "../../../Components/CartContext";
+    const API_URL = import.meta.env.VITE_API_URL;
 
 
 
@@ -24,7 +25,7 @@
                 try {
 
                     const response = await axios.get(
-                        `http://localhost:3000/api/products/admin?page=${page}&search=${search}`,{
+                        `${API_URL}/api/products/admin?page=${page}&search=${search}`,{
                             headers: {
                                 Authorization: `Bearer ${token}`
                             }
@@ -52,7 +53,7 @@
 
         
         const fetchOrders = async () => {
-            const response = await axios.get("http://localhost:3000/api/orders/admin/all", {
+            const response = await axios.get(`${API_URL}/api/orders/admin/all`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 },
@@ -72,7 +73,7 @@
         //Fetching order Details
         const fetchOrderDetails = async (id) => {
             try {
-                const response = await axios.get(`http://localhost:3000/api/orders/${id}`, {
+                const response = await axios.get(`${API_URL}/api/orders/${id}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     },
@@ -88,7 +89,7 @@
 
         // Fetching user Details
         const fetchUserDetails = async () => {
-            const response = await axios.get("http://localhost:3000/api/users/admin/all",{
+            const response = await axios.get(`${API_URL}/api/users/admin/all`,{
                 headers: {
                     Authorization: `Bearer ${token}`
                 },

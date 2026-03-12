@@ -5,6 +5,7 @@ import { CartContext } from "../Components/CartContext";
 import { useParams } from "react-router-dom";
 import { formatDateTime } from "../utils/date";
 import { currencyFormat } from "../utils/currency";
+const API_URL = import.meta.env.VITE_API_URL;
 
 
 export default function OrderDetails () {
@@ -19,7 +20,7 @@ useEffect (() => {
     const fetchOrderDetails = async () => {
         
         try {
-            const response = await axios.get(`http://localhost:3000/api/orders/${id}`, {
+            const response = await axios.get(`${API_URL}/api/orders/${id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 },

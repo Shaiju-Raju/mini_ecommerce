@@ -4,6 +4,7 @@ import axios from "axios";
 import { CartContext, } from "../../Components/CartContext";
 import { AdminContext } from "./Components/AdminContext";
 import { toast } from "react-toastify";
+const API_URL = import.meta.env.VITE_API_URL;
 
 export default function EditProductPopup({ product, closePopup }) {
     const {token} = useContext(CartContext);
@@ -58,7 +59,7 @@ export default function EditProductPopup({ product, closePopup }) {
         e.preventDefault();
         
         try {
-            await axios.put(`http://localhost:3000/api/products/${product.id}`,
+            await axios.put(`${API_URL}/api/products/${product.id}`,
                 editedData,
                 {
                     headers:{
