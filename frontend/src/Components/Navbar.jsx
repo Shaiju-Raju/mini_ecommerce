@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+﻿import { useContext, useEffect, useState } from "react";
 import { CartContext } from "./CartContext";
 import { useNavigate,useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -49,36 +49,62 @@ export default function Navbar() {
 
   return (
     <div className="navbar">
-      <div className="nav-left">
-        <h2 onClick={handleHomePage} className="logo">MyStore</h2>
+      <div className="nav-logo-row">
+        <h2 onClick={handleHomePage} className="logo">My Store</h2>
       </div>
 
-    {location.pathname === "/" && (
-      <div className="nav-center">
-        <div className="search-container">
-          <input
-            value={search}
-            type="text"
-            placeholder="Search products..."
-            className="search-bar"
-            onChange={(e)=> setSearch(e.target.value)}
-          />
-          <button className="search-icon-btn" onClick={handleSearch} >
-            🔍
-          </button>
+      {location.pathname === "/" && (
+        <div className="nav-search-row">
+          <div className="search-container">
+            <input
+              value={search}
+              type="text"
+              placeholder="Search products..."
+              className="search-bar"
+              onChange={(e)=> setSearch(e.target.value)}
+            />
+            <button className="search-icon-btn" onClick={handleSearch} aria-label="Search">
+              {"\u{1F50D}"}
+            </button>
+          </div>
         </div>
-      </div>
-    )}
+      )}
 
-        <div className="nav-right">
+      {!["/login", "/signup"].includes(location.pathname) && (
+        <div className="nav-welcome-row">
+          <span className="welcome-text welcome-mobile">Welcome, {user} {"\u{1F44B}"}</span>
+        </div>
+      )}
+
+      <div className="nav-actions-row">
+        <div className="nav-actions-left">
+          {!["/login", "/signup"].includes(location.pathname) && (
+            <div className="cart-icon cart-mobile" onClick={handleCart} aria-label="Cart">
+              {"\u{1F6D2}"}
+              {cartCount > 0 && (
+                <span className="cart-badge">{cartCount}</span>
+              )}
+            </div>
+          )}
+        </div>
+
+        <div className="nav-actions-right">
+          {!["/login", "/signup"].includes(location.pathname) && (
+            <span className="welcome-text welcome-desktop">Welcome, {user} {"\u{1F44B}"}</span>
+          )}
 
           {!["/login", "/signup"].includes(location.pathname) && (
-            <span className="welcome-text">Welcome, {user} 👋</span>
+            <div className="cart-icon cart-desktop" onClick={handleCart} aria-label="Cart">
+              {"\u{1F6D2}"}
+              {cartCount > 0 && (
+                <span className="cart-badge">{cartCount}</span>
+              )}
+            </div>
           )}
 
           {token&& (
           <div className="profile-container">
-            <div className="profile-btn">Profile ▾</div>
+            <div className="profile-btn">Profile {"\u25BE"}</div>
 
             <div className="profile-dropdown">
               <div className="dropdown-item" onClick={() => navigate("/order_history")}>Order History</div>
@@ -97,14 +123,7 @@ export default function Navbar() {
             <button className="login-btn" onClick={() => navigate("/login")}>Login</button>
           ) : null}
 
-          {!["/login", "/signup"].includes(location.pathname) && (
-            <div className="cart-icon" onClick={handleCart}>
-              🛒
-              {cartCount > 0 && (
-                <span className="cart-badge">{cartCount}</span>
-              )}
-            </div>
-          )}
+        </div>
 
       </div>
 
