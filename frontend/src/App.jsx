@@ -5,9 +5,9 @@ import Cart from "./Pages/Cart";
 import Checkout from "./Pages/Checkout";
 import UserLayout from "./Routes/UserLayout";
 import OrderHistory from "./Pages/OrderHistory";
+import "react-toastify/dist/ReactToastify.css";
 import "./App.css"
 import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import Orders from "./Pages/Orders";
 import OrderDetails from "./Pages/OrderDetails";
 import AdminDashBoard from "./Pages/Admin/AdminDashBoard";
