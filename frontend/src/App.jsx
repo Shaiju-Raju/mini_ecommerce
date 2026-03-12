@@ -15,6 +15,7 @@ import AdminRoute from "./Routes/AdminRoute";
 import UserRoute from "./Routes/UserRoute";
 import RoleRedirect from "./Routes/RoleRedirect";
 import PublicRoute from "./Routes/PublicRoute";
+import Signup from "./Pages/Signup";
 
 
 
@@ -27,6 +28,7 @@ function App() {
         <Route element={<UserLayout />}>
           <Route path="/" element={<RoleRedirect> <Home /> </RoleRedirect> } />
           <Route path="/login" element={<PublicRoute> <Login /> </PublicRoute>} />
+          <Route path="/signup" element={<PublicRoute> <Signup /> </PublicRoute>} />
           <Route path="/cart" element={<UserRoute> <Cart /> </UserRoute>} />
           <Route path="/checkout" element={<UserRoute> <Checkout /> </UserRoute>} />
           <Route path="/orders/:orderId" element={<UserRoute> <Orders /> </UserRoute>} />
