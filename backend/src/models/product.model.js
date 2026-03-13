@@ -2,7 +2,7 @@ import pool from "../config/db.js";
 
 
 // For Admin Only
-export const getAllProducts = async (page = 1, limit= 8, search = "") => {
+export const getAllProducts = async (page = 1, limit= 10, search = "") => {
 
     const offset = (page -1) * limit;
 
