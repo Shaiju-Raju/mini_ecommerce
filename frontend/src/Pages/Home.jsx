@@ -38,7 +38,9 @@ export default function Home() {
                 setProducts(response.data.products);
                 setTotalPages(response.data.totalPages);
 
-            } catch (err) {
+            } catch (err) {`
+                q
+                q`
                 setError("Unable to load products. Please try again.");
                 console.log(err);
             } finally {

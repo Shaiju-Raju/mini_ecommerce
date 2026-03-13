@@ -1,4 +1,4 @@
-import AddToCartButton from "./addToCartButton";
+import AddToCartButton from "./AddToCartButton.jsx";
 import { useState } from "react";
 
 export default function ProductCard({ product }) {
