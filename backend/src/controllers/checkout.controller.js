@@ -1,6 +1,7 @@
 import { getOrCreateCart, getFromCart } from "../models/cart.model.js";
 import { createOrder,createOrderItems,clearCart,createOrderAddress } from "../models/checkout.model.js";
 import { getSettings } from "../models/settings.model.js";
+import { reduceStock } from "../models/product.model.js";
 
 
 export async function checkout (req, res) {
@@ -38,7 +39,15 @@ export async function checkout (req, res) {
  
     // Insert Order Items & Address
     await createOrderItems(order.id, items);
+    
     const address= await createOrderAddress(order.id, shippingData)
+
+    //Update Product Quantity
+
+    for(const item of items) {
+        await reduceStock(item.product_id, item.quantity);
+    }
+    
 
     // Clear Cart
     await clearCart(cart.id)
