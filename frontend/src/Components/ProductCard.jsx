@@ -58,8 +58,8 @@ const contentStyle = {
 
 const imageStyle = {
   width: "100%",
-  height: "200px",
-  objectFit: "cover",
+  height: "100%",
+  objectFit: "contain",   // ✅ FIXED
   transition: "opacity 0.3s ease",
 };
 
@@ -76,7 +76,11 @@ const imageWrapper = {
   position: "relative",
   width: "100%",
   height: "200px",
-  overflow: "hidden",
   borderTopLeftRadius: "12px",
   borderTopRightRadius: "12px",
+
+  display: "flex",              // ✅ ADD
+  alignItems: "center",         // ✅ ADD
+  justifyContent: "center",     // ✅ ADD
+  backgroundColor: "#f5f5f5",   // ✅ OPTIONAL (looks better)
 };
