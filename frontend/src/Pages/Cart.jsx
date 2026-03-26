@@ -4,11 +4,16 @@ import { CartContext } from "../Components/CartContext";
 import CartItem from "../Components/CartItem";
 import { currencyFormat } from "../utils/currency";
 import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+
+
 
 
 export default function Cart () {
     const { cartItems, subTotal, fetchCart, shippingCharge, total} = useContext(CartContext);
     const navigate = useNavigate();
+    const location = useLocation();
+    const error = location.state?.error;
 
 
     useEffect(() => {
@@ -36,7 +41,7 @@ export default function Cart () {
             </div>
             ) : (
             cartItems.map((item) => (
-            <CartItem key={item.id} item={item} />
+            <CartItem key={item.id} item={item} error={error} />
             ))
             )}
 

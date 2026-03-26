@@ -45,6 +45,8 @@ export default function Checkout() {
       alert("Your cart is empty");
       return;
     }
+
+    try {
       const data = await placeOrder();
       setCartCount(0);
       setSubTotal(0)
@@ -58,7 +60,14 @@ export default function Checkout() {
       if(data) {
         navigate(`/orders/${data.order.id}`);
       }
+    } catch (err) {
+       navigate("/cart", {
+        state: {
+          error: err.response?.data
+        }
+      });
   }
+}
 
   return (
 

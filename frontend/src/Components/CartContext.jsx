@@ -94,11 +94,12 @@ export const CartProvider = ({children}) => {
                     }
                 }
             )
-
+            console.log(res.data)
             return res.data;
 
         } catch (err) {
             console.error(err);
+            throw err;
         }
     }
 

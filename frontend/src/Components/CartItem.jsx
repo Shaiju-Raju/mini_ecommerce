@@ -5,7 +5,7 @@ import axios from "axios";
 import { FaTrash } from "react-icons/fa";
 const API_URL = import.meta.env.VITE_API_URL;
 
-export default function CartItem ({item}) {
+export default function CartItem ({item, error}) {
 const {token, fetchCart}  = useContext(CartContext);
 
  async function handleDelete() {
@@ -72,6 +72,11 @@ const {token, fetchCart}  = useContext(CartContext);
               {item.description}
             </p>
             <p className="stock-text">In Stock</p>
+              {error?.productId === item.product_id && (
+                <p style={{ color: "red", marginTop: "5px" }}>
+                  {error.message}
+                </p>
+              )}
           </div>
 
           <p className="item-price">{currencyFormat(item.price)}</p>
