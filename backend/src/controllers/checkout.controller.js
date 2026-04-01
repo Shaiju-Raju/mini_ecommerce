@@ -1,7 +1,7 @@
 import { getOrCreateCart, getFromCart } from "../models/cart.model.js";
 import { createOrder,createOrderItems,clearCart,createOrderAddress } from "../models/checkout.model.js";
 import { getSettings } from "../models/settings.model.js";
-import { reduceStock } from "../models/product.model.js";
+import { getProductById, reduceStock } from "../models/product.model.js";
 
 
 export async function checkout (req, res) {
@@ -25,15 +25,31 @@ export async function checkout (req, res) {
         const total = subTotal + shippingCharge;
 
         // ✅ STEP 1: CHECK STOCK FIRST
+        const failedItems = [];
+        
+
         for (const item of items) {
             const updateProduct = await reduceStock(item.product_id, item.quantity);
+            
 
             if (!updateProduct) {
-                return res.status(400).json({
-                    message: `Only limited stock available for ${item.title}`,
-                    productId: item.product_id
+                const productDetails = await getProductById(item.product_id);
+                const quantity= productDetails.stock;
+               
+                failedItems.push({
+                    productId: item.product_id,
+                    title: item.title,
+                    message: `${quantity >1 && quantity <5 ? "Only "+ quantity :"Sorry! No"} stock available for ${item.title}`
                 });
             }
+        }
+
+
+        if (failedItems.length > 0 ) {
+            return res.status(400).json({
+            message: "Some items have stock issues",
+            error: failedItems
+            });
         }
 
         // ✅ STEP 2: ONLY AFTER SUCCESS → CREATE ORDER

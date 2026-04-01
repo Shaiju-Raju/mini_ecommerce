@@ -7,6 +7,11 @@ const API_URL = import.meta.env.VITE_API_URL;
 
 export default function CartItem ({item, error}) {
 const {token, fetchCart}  = useContext(CartContext);
+const itemError = error?.find(
+  (err) => err.productId === item.product_id
+);
+
+console.log(itemError)
 
  async function handleDelete() {
     try {
@@ -72,9 +77,10 @@ const {token, fetchCart}  = useContext(CartContext);
               {item.description}
             </p>
             <p className="stock-text">In Stock</p>
-              {error?.productId === item.product_id && (
+            
+              {itemError && (
                 <p style={{ color: "red", marginTop: "5px" }}>
-                  {error.message}
+                  {itemError.message}
                 </p>
               )}
           </div>

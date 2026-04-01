@@ -139,6 +139,7 @@ export const reduceStock = async (id, quantity) => {
          RETURNING *`,
         [quantity, id]
     );
+    
     return result.rows[0];
     
 };

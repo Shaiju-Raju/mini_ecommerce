@@ -13,8 +13,8 @@ export default function Cart () {
     const { cartItems, subTotal, fetchCart, shippingCharge, total} = useContext(CartContext);
     const navigate = useNavigate();
     const location = useLocation();
-    const error = location.state?.error;
-
+    const error = location.state?.error.error
+    console.log(error)
 
     useEffect(() => {
         fetchCart();
