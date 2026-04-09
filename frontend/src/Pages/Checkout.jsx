@@ -3,6 +3,7 @@ import { CartContext } from "../Components/CartContext";
 import { useContext, useState } from "react";
 import { currencyFormat } from "../utils/currency";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export default function Checkout() {
 
@@ -19,6 +20,7 @@ export default function Checkout() {
   } = useContext(CartContext);
   
   const navigate = useNavigate();
+  const [paymentMethod, setPaymentMethod] = useState("COD");
 
   const handleChange= (e) => {
     const {name, value} = e.target;
@@ -47,18 +49,62 @@ export default function Checkout() {
     }
 
     try {
-      const data = await placeOrder();
-      setCartCount(0);
-      setSubTotal(0)
-      setShippingData(prev => 
-        Object.keys(prev).reduce((acc, key) => {
-          acc[key] = "";
-          return acc;
-        }, {})
-      );
-      
-      if(data) {
-        navigate(`/orders/${data.order.id}`);
+      if (paymentMethod === "COD") {
+        const data = await placeOrder();
+        setCartCount(0);
+        setSubTotal(0)
+        setShippingData(prev => 
+          Object.keys(prev).reduce((acc, key) => {
+            acc[key] = "";
+            return acc;
+          }, {})
+        );
+        
+        if(data) {
+          navigate(`/orders/${data.order.id}`);
+        }
+      } else {
+        const {data} = await axios.post(
+          "http://localhost:3000/api/payment/create-order",
+          {amount : total}
+        );
+
+        const options = {
+          key: "rzp_test_SYBRd1nRieDXVM",
+          amount: data.amount,
+          currency: "INR",
+          name: "My Store",
+          description: "Order Payment",
+          order_id: data.id,
+
+          handler: async function (response) {
+            const verify = await axios.post(
+              "http://localhost:3000/api/payment/verify-payment",
+              response
+            );
+
+            if (verify.data.success) {
+              const data = await placeOrder();
+                setCartCount(0);
+                setSubTotal(0)
+                setShippingData(prev => 
+                  Object.keys(prev).reduce((acc, key) => {
+                    acc[key] = "";
+                    return acc;
+                }, {})
+              );
+              navigate(`/orders/${data.order.id}`);
+            }
+          },
+          theme: {
+            color: "#3399cc",
+          },
+        };
+
+        const razor = new window.Razorpay(options);
+        razor.open();
+
+
       }
     } catch (err) {
        navigate("/cart", {
@@ -109,17 +155,22 @@ export default function Checkout() {
 
             <div className="payment-options">
               <div className="payment-card active">
-                <input type="radio" name="payment" defaultChecked />
+                <input type="radio"
+                       name="payment"
+                       checked={paymentMethod === "COD"}
+                       onChange={() => setPaymentMethod("COD")}
+                />
+
                 <span>Cash on Delivery</span>
               </div>
 
               <div className="payment-card">
-                <input type="radio" name="payment" />
-                <span>Credit / Debit Card</span>
-              </div>
+                <input type="radio"
+                       name="payment"
+                       checked={paymentMethod === "ONLINE"}
+                       onChange={() => setPaymentMethod("ONLINE")} 
+                />
 
-              <div className="payment-card">
-                <input type="radio" name="payment" />
                 <span>UPI / Net Banking</span>
               </div>
             </div>
