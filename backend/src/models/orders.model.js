@@ -47,9 +47,32 @@ export const getAllOrdersModel = async () => {
 };
 
 export const updateOrderStatusModel = async (orderId, status) => {
+
+    const orderResult = await pool.query(
+        "SELECT * FROM orders WHERE id = $1",
+        [orderId]
+    );
+
+    const order = orderResult.rows[0];
+
+    if(!order) {
+        throw new Error("Order not found");
+    }
+
+    let paymentStatus = order.payment_status;
+
+    if (
+        order.payment_method === "COD" &&
+        status.toLowerCase() === "delivered"
+    ) {
+        paymentStatus = "PAID";
+    }
+    
     const result = await pool.query(
-        "UPDATE orders SET status = $1 WHERE id = $2 RETURNING *",
-        [status, orderId]
+        `UPDATE orders SET status = $1, payment_status = $2 
+         WHERE id = $3
+         RETURNING *`,
+        [status,paymentStatus, orderId]
     );
     return result.rows[0];
 };

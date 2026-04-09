@@ -69,6 +69,12 @@ export default function OrdersPopup({ order, closePopup, userName, refreshOrders
         <div className="popup-body">
 
           <p><strong>Customer:</strong> {userName}</p>
+          <p><strong>Payment Method:</strong> {order.payment_method}</p>
+          <p><strong>Payment Status:</strong> {order.payment_status}</p>
+          {order.payment_id && 
+          <p><strong>Payment id:</strong> {order.payment_id}</p>
+          }
+        
 
           {/* STATUS SECTION */}
           <div className="order-status-section">

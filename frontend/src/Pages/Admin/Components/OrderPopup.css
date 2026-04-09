@@ -183,3 +183,10 @@
   font-weight:700;
   background:#f1f5f9;
 }
+
+.payment-info {
+  margin: 10px 0;
+  padding: 10px;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
