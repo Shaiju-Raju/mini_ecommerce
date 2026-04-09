@@ -83,18 +83,20 @@ export const CartProvider = ({children}) => {
 
 
     // To place the order
-    const placeOrder = async () => {
+    const placeOrder = async (orderData = {}) => {
 
         try {
             const res = await axios.post(`${API_URL}/api/cart/checkout`,
-                shippingData,
+                {
+                    ...shippingData,
+                    ...orderData
+                },
                 {
                     headers:{
                         Authorization: `Bearer ${token}`
                     }
                 }
             )
-            console.log(res.data)
             return res.data;
 
         } catch (err) {

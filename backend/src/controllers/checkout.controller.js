@@ -7,6 +7,7 @@ import { getProductById, reduceStock } from "../models/product.model.js";
 export async function checkout (req, res) {
     const userId = req.user.id;
     const shippingData = req.body;
+    console.log(shippingData)
 
     try {
 
@@ -53,7 +54,7 @@ export async function checkout (req, res) {
         }
 
         // ✅ STEP 2: ONLY AFTER SUCCESS → CREATE ORDER
-        const order = await createOrder(userId, totalQuantity, shippingCharge, subTotal, total);
+        const order = await createOrder(userId, totalQuantity, shippingCharge, subTotal, total, shippingData.paymentMethod, shippingData.paymentStatus, shippingData.paymentId);
 
         await createOrderItems(order.id, items);
         await createOrderAddress(order.id, shippingData);

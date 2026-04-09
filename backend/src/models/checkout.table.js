@@ -10,6 +10,9 @@ const createCheckoutTable = async () => {
             user_id INT REFERENCES users(id) ON DELETE CASCADE,
             total NUMERIC NOT NULL,
             status VARCHAR(20) DEFAULT 'pending',
+            payment_method VARCHAR(20),
+            payment_status VARCHAR(20),
+            payment_id VARCHAR(100),
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             );`
         );

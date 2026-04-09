@@ -55,6 +55,12 @@ export default function Orders () {
             <div className="order-card success-card">
                 <h2>🎉 Thank You! Your Order Has Been Placed</h2>
                 <p>Your Order ID: <strong>#ORD{order.id}</strong></p>
+                <p>Payment Method: <strong>{order.payment_method}</strong></p>
+                <p>Payment Status: <strong>{order.payment_status}</strong></p>
+                {order.payment_id &&
+                    <p>Payment id: <strong>{order.payment_id}</strong></p>
+                }
+                
                 <p className="order-status">Status: {order.status}</p>
                 <p className="delivery-msg">
                 Your order will be delivered to the address below.

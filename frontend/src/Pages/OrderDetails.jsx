@@ -74,6 +74,20 @@ useEffect (() => {
             <div className="info-card">
             <h3>Order Summary</h3>
             <div className="summary-row">
+                <span>Payment Method</span>
+                <span>{order.payment_method}</span>
+            </div>
+            <div className="summary-row">
+                <span>Payment Status</span>
+                <span>{order.payment_status}</span>
+            </div>
+            {order.payment_id && 
+                <div className="summary-row">
+                <span>Payment Status</span>
+                <span>{order.payment_id}</span>
+            </div>
+            }
+            <div className="summary-row">
                 <span>Total Items</span>
                 <span>{order.total_quantity}</span>
             </div>

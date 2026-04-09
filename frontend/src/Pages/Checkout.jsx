@@ -50,7 +50,10 @@ export default function Checkout() {
 
     try {
       if (paymentMethod === "COD") {
-        const data = await placeOrder();
+        const data = await placeOrder({
+            paymentMethod: "COD",
+            paymentStatus: "PENDING"
+        });
         setCartCount(0);
         setSubTotal(0)
         setShippingData(prev => 
@@ -84,7 +87,11 @@ export default function Checkout() {
             );
 
             if (verify.data.success) {
-              const data = await placeOrder();
+              const data = await placeOrder({
+                paymentMethod: "ONLINE",
+                paymentStatus: "PAID",
+                paymentId: response.razorpay_payment_id
+              });
                 setCartCount(0);
                 setSubTotal(0)
                 setShippingData(prev => 
