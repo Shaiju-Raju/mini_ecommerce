@@ -1,110 +1,164 @@
 # Mini E-Commerce (Full Stack) - Project Summary
 
-## Overview
-This repository contains a small full-stack e-commerce app with:
-- A **React + Vite** frontend for browsing products, cart, checkout, orders, and an admin dashboard.
-- A **Node.js + Express** backend (ESM) backed by **PostgreSQL**, using **JWT** auth and role-based access control.
+## 📌 Overview
+This repository contains a full-stack e-commerce application built with a modern web stack. It provides a complete shopping experience, including product browsing, cart management, secure checkout with an integrated payment gateway (Razorpay), order tracking, and a comprehensive admin dashboard for managing products and orders.
 
-## Tech Stack
-### Frontend
-- React (Vite), React Router
-- Axios for API calls
-- react-toastify for notifications
-
-### Backend
-- Node.js (ES modules), Express
-- PostgreSQL via `pg`
-- Auth: JWT (`jsonwebtoken`), password hashing (`bcrypt`)
-- `dotenv` + `cors`
-
-## Repository Layout
-- `frontend/`: React app (Vite)
-- `backend/`: Express API server + database models/table creation
-- `PROJECT_SUMMARY.md`: this file
-- `backend/PROJECT_SUMMARY.md`: backend-specific details
-
-## How To Run (Local)
-### Prerequisites
-- Node.js (recommended: recent LTS)
-- PostgreSQL running locally
-
-### Backend
-1. Create/update `backend/.env` with the required variables (see Backend section below).
-2. Install and run:
-   - `cd backend`
-   - `npm install`
-   - `npm run dev` (or `npm start`)
-3. Backend listens on `process.env.PORT` (commonly `3000`).
+## 🚀 Tech Stack
 
 ### Frontend
-1. Install and run:
-   - `cd frontend`
-   - `npm install`
-   - `npm run dev`
-2. The frontend currently calls APIs using hardcoded `http://localhost:3000/...` URLs in multiple places.
+- **Framework:** React.js (Bootstrapped with Vite)
+- **Routing:** React Router v7
+- **Styling:** Vanilla CSS (App.css, index.css)
+- **State Management:** React Context API (`CartContext`)
+- **HTTP Client:** Axios
+- **Notifications:** React Toastify
+- **Token Decoding:** `jwt-decode`
 
-## Frontend Routes (UI)
-- `/`: Home (product listing + search via query params)
-- `/login`, `/signup`: authentication pages
-- `/cart`: cart page (protected user route)
-- `/checkout`: shipping + payment selection + place order (protected user route)
-- `/orders/:orderId`: order confirmation page (protected user route)
-- `/order_history`: list of user orders (protected user route)
-- `/order_history/order_details/:id`: order details (protected user route)
-- `/admin/dashboard`: admin dashboard (protected admin route)
+### Backend
+- **Runtime:** Node.js (ES Modules)
+- **Framework:** Express.js
+- **Database:** PostgreSQL (via `pg` library)
+- **Authentication:** JSON Web Tokens (JWT) & `bcrypt` for password hashing
+- **Payment Gateway:** Razorpay Integration
+- **Middlewares:** CORS, dotenv
 
-## Auth + Roles
-- Login returns a JWT stored in `localStorage` as `token`.
-- Route guards decode the JWT using `jwt-decode`:
-  - User-only pages redirect admins to `/admin/dashboard`.
-  - Admin-only pages redirect non-admins to `/`.
+## 📂 Folder Structure
 
-## Backend API (High Level)
-Base URL: `http://localhost:<PORT>/api`
+```text
+mini-ecommerce/
+├── backend/                        # Node.js + Express Backend
+│   ├── src/
+│   │   ├── config/                 # Database connection config (db.js)
+│   │   ├── controllers/            # Route logic (cart, products, users, etc.)
+│   │   ├── middlewares/            # Custom middlewares (auth & role verification)
+│   │   ├── models/                 # PostgreSQL table creation statements & queries
+│   │   ├── routes/                 # API route declarations
+│   │   ├── app.js                  # Express app setup and global middlewares
+│   │   └── server.js               # Application entry point (starts server)
+│   ├── .env                        # Backend environment variables
+│   └── package.json                # Backend dependencies and scripts
+│
+├── frontend/                       # React Frontend (Vite)
+│   ├── src/
+│   │   ├── assets/                 # Images, icons, and static files
+│   │   ├── Components/             # Reusable UI components (Navbar, CartItem, ProductCard, etc.)
+│   │   ├── Pages/                  # Main views (Home, Login, Cart, Checkout, Orders)
+│   │   │   └── Admin/              # Admin-specific pages and components
+│   │   ├── Routes/                 # Route guards (UserRoute, AdminRoute, PublicRoute, etc.)
+│   │   ├── utils/                  # Helper formatting functions (currency.js, date.js)
+│   │   ├── App.jsx                 # Main routing logic and Layout wrapper
+│   │   ├── main.jsx                # React DOM render entry point
+│   │   ├── index.css               # Global CSS styles
+│   │   └── App.css                 # Application-wide component CSS
+│   ├── .env                        # Frontend environment variables
+│   ├── vite.config.js              # Vite bundler configuration
+│   └── package.json                # Frontend dependencies and scripts
+│
+└── PROJECT_SUMMARY.md              # This documentation file
+```
 
-### Users
-- `POST /api/users/register`
-- `POST /api/users/login`
-- `GET /api/users/profile` (auth)
-- `GET /api/users/admin/all` (auth + admin)
+## 🔄 Application Flow & Architecture
+
+1. **Authentication & Authorization (JWT & Roles):** 
+   - Users and Admins authenticate via the `/login` page. The backend returns a JWT token which is securely stored in `localStorage`.
+   - Route guards (`UserRoute`, `AdminRoute`, `PublicRoute`, `RoleRedirect`) analyze the decoded JWT to enforce Role-Based Access Control on the client side.
+
+2. **User Experience:**
+   - **Browsing:** Users land on the `Home` page, which fetches active products from the backend. They can filter, search, and navigate through paginated product listings.
+   - **Cart Management:** The `CartContext` and APIs manage item additions. Users can review, adjust quantities, or remove items from their remote cart.
+   - **Checkout & Payment:** Users confirm their shipping addresses and proceed to payment integration powered by Razorpay. Upon processing, the backend creates an order record and clears the cart.
+   - **Order History:** Users can track and view details of their previous and current orders via the `OrderHistory` and `OrderDetails` pages.
+
+3. **Admin Experience:**
+   - Admin accounts are automatically redirected to `AdminDashboard`. From the portal, they can:
+     - Add new products to the catalog (`AddProduct`).
+     - View, edit, or remove existing products via interactive modals (`ViewProducts`, `EditProductPopup`).
+     - View all customer orders across the platform and update their fulfillment status (`Orders`).
+
+## 🔌 API Endpoints (High Level)
+
+*Base URL: `http://localhost:<PORT>/api`*
+
+### Users & Auth
+- `POST /api/users/register` - Create a new user account.
+- `POST /api/users/login` - Authenticate and receive a JWT.
+- `GET /api/users/profile` - Fetch the logged-in user's profile *[Auth Required]*.
+- `GET /api/users/admin/all` - List all users in the system *[Admin Only]*.
 
 ### Products
-- `GET /api/products` (active products; supports `page`, `limit`, `search`)
-- `GET /api/products/:id`
-- `GET /api/products/admin` (auth + admin; supports `page`, `limit`, `search`)
-- `POST /api/products` (auth + admin)
-- `PUT /api/products/:id` (auth + admin)
-- `PATCH /api/products/:id/status` (auth + admin)
+- `GET /api/products` - List all active products (supports `page`, `limit`, `search`).
+- `GET /api/products/:id` - Get specific product details.
+- `GET /api/products/admin` - List all products for the admin panel *[Admin Only]*.
+- `POST /api/products` - Create a new product *[Admin Only]*.
+- `PUT /api/products/:id` - Update an existing product *[Admin Only]*.
 
-### Cart + Checkout
-- All cart routes require auth (middleware applied at router level).
-- `POST /api/cart` (add item)
-- `GET /api/cart` (get cart items + totals)
-- `PUT /api/cart/:cart_item_id` (update quantity)
-- `DELETE /api/cart/:productId` (remove item)
-- `POST /api/cart/checkout` (place order; creates order, items, address; clears cart)
+### Cart & Checkout
+- `POST /api/cart` - Add an item to the cart *[Auth Required]*.
+- `GET /api/cart` - Retrieve current user's cart items and total cost *[Auth Required]*.
+- `PUT /api/cart/:cart_item_id` - Update cart item quantity *[Auth Required]*.
+- `DELETE /api/cart/:productId` - Remove item from cart *[Auth Required]*.
+- `POST /api/cart/checkout` - Create an order, process checkout, and clear cart *[Auth Required]*.
 
 ### Orders
-- `GET /api/orders` (auth; user’s orders)
-- `GET /api/orders/:id` (auth; user can only access own; admin can access any)
-- `PUT /api/orders/admin/:id` (auth + admin; update order status)
-- `GET /api/orders/admin/all` (auth + admin; list all orders)
-  - Note: there is a routing-order issue in `backend/src/routes/order.routes.js` where `GET /:id` is declared before `GET /admin/all`, which can shadow the admin route in Express. This should be fixed by moving the admin routes above `/:id`.
+- `GET /api/orders` - Return order history to the logged-in user *[Auth Required]*.
+- `GET /api/orders/:id` - Get specific order invoice *[Auth Required]*.
+- `GET /api/orders/admin/all` - List every order platform-wide *[Admin Only]*.
+- `PUT /api/orders/admin/:id` - Alter order shipping/delivery status *[Admin Only]*.
 
-### Settings
-- `GET /api/settings` (shipping rate/settings)
+*(Additional settings and payment endpoints are managed via `settings.routes.js` and `payment.routes.js` respectively).*
 
-## Database Notes
-- PostgreSQL connection is configured in `backend/src/config/db.js` via environment variables.
-- Tables are created on server start in `backend/src/app.js` by calling `create...Table()` functions for products/users/cart/orders/settings.
+## 🛠️ Local Setup & Installation
 
-## Mobile Responsiveness (Frontend)
-Mobile-first CSS improvements have been added across:
-- Navbar (stacked layout on small screens, compact profile menu, improved desktop alignment)
-- Cart, Checkout, Order confirmation, Order history + details
-- Admin dashboard: mobile top bar + expandable menu panel
-- Toastify: mobile width constraints and spacing for notifications
+### Prerequisites
+- [Node.js](https://nodejs.org/en/) (LTS Version Recommended)
+- [PostgreSQL](https://www.postgresql.org/) running locally to host the database.
 
-## Known Issues / Follow-Ups
-- Backend: `GET /api/orders/admin/all` can be shadowed by `GET /api/orders/:id` depending on route order.
-- Backend: `backend/.env` currently contains secrets; ensure `.env` is not committed to version control and rotate credentials if it ever was.
+### 1. Database Configuration
+Ensure PostgreSQL is running. The backend is configured to automatically create tables (Products, Users, Cart, Orders, Settings) using the `create...Table()` functions mapped in `backend/src/app.js` upon starting the server. You only need to ensure the database specified in `.env` exists.
+
+### 2. Backend Setup
+1. Open a terminal and navigate to the backend directory:
+   ```bash
+   cd backend
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Create a `.env` file in the `backend/` directory heavily referencing local vars:
+   ```env
+   PORT=3000
+   DB_USER=postgres
+   DB_PASSWORD=your_db_password
+   DB_HOST=localhost
+   DB_PORT=5432
+   DB_NAME=miniecommerce
+   JWT_SECRET=your_jwt_secret_signature
+   RAZORPAY_KEY_ID=your_razorpay_key
+   RAZORPAY_KEY_SECRET=your_razorpay_secret
+   ```
+4. Start the backend development server:
+   ```bash
+   npm run dev
+   ```
+   *The server should automatically build database tables upon loading if they don't exist.*
+
+### 3. Frontend Setup
+1. Open a new terminal and navigate to the frontend directory:
+   ```bash
+   cd frontend
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Start the frontend Vite development server:
+   ```bash
+   npm run dev
+   ```
+
+## ⚠️ Known Issues & Technical Debt
+
+- **API Hardcoding:** The frontend app currently contains several hardcoded `/api/...` references mapped to `localhost:3000`. Ideally, these should be replaced with an environment variable referenced Axios instance (`import.meta.env.VITE_API_BASE_URL`).
+- **Route Order (Shadowing):** In `backend/src/routes/order.routes.js`, the `GET /api/orders/:id` endpoint being placed before `GET /api/orders/admin/all` might inadvertently shadow the admin route.
+- **Environment Secrets Leakage:** Ensure `.env` is explicitly added globally in `.gitignore` on both frontend and backend to avoid committing API keys/passwords.
