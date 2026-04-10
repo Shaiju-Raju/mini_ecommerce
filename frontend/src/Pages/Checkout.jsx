@@ -68,7 +68,7 @@ export default function Checkout() {
         }
       } else {
         const {data} = await axios.post(
-          "http://localhost:3000/api/payment/create-order",
+          `${import.meta.env.VITE_API_URL}/api/payment/create-order`,
           {amount : total}
         );
 
@@ -82,7 +82,7 @@ export default function Checkout() {
 
           handler: async function (response) {
             const verify = await axios.post(
-              "http://localhost:3000/api/payment/verify-payment",
+              `${import.meta.env.VITE_API_URL}/api/payment/verify-payment`,
               response
             );
 
