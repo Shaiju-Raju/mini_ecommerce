@@ -5,6 +5,9 @@ dotenv.config();
 
 const { Pool } = pkg;
 
+// 🔥 Force Node to prefer IPv4 globally
+dns.setDefaultResultOrder("ipv4first");
+
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
     ssl: {
