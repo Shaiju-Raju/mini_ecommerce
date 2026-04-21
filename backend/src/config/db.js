@@ -1,5 +1,6 @@
 import pkg from 'pg';
 import dotenv from 'dotenv'
+import dns from "dns";
 
 dotenv.config();
 
