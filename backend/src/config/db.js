@@ -1,13 +1,13 @@
 import pkg from 'pg';
 import dotenv from 'dotenv'
-// import dns from "dns";
+import dns from "dns";
 
 dotenv.config();
 
 const { Pool } = pkg;
 
 // 🔥 Force Node to prefer IPv4 globally
-// dns.setDefaultResultOrder("ipv4first");
+dns.setDefaultResultOrder("ipv4first");
 
 const pool = new Pool({
   host: process.env.DB_HOST,
